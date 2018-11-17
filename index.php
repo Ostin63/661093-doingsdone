@@ -37,9 +37,7 @@ $tasks_list = [
         'done' => false
     ]
 ];
-$tasks_list = array_filter($tasks_list, function($show_complete_tasks) {
-    return $show_complete_tasks == 0;
-});
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -126,7 +124,7 @@ $tasks_list = array_filter($tasks_list, function($show_complete_tasks) {
                 </div>
                 <table class="tasks">
                     <?php foreach ($tasks_list as $key => $val): ?>
-                        <tr class="tasks__item task <?= ($val['done'] == true) ? "task--completed" : "" ?>">
+                        <tr class="tasks__item task <?= ($val['done'] == true) ? "task--completed" : "" ?>" <?= ($val['done'] == true) & ($show_complete_tasks == 0) ? "hidden" : "" ?>>
                             <td class="task__select">
                                 <label class="checkbox task__checkbox">
                                     <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= ($val['done'] == true) ? "checked" : "" ?>>
