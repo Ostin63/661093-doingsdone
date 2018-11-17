@@ -122,7 +122,7 @@ $tasks_list = [
                 </div>
                 <table class="tasks">
                     <?php foreach ($tasks_list as $key => $val): ?>
-                        <?php if (!$val['done'] || $show_complete_tasks != 0): ?>
+                        <?php if (!$val['done'] || $show_complete_tasks == 1): ?>
                             <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" >
                                 <td class="task__select">
                                     <label class="checkbox task__checkbox">
