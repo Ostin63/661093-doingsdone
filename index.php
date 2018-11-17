@@ -122,20 +122,22 @@ $tasks_list = [
                 </div>
                 <table class="tasks">
                     <?php foreach ($tasks_list as $key => $val): ?>
-                        <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" <?= ($val['done'] && $show_complete_tasks == 0) ? "hidden" : "" ?>>
-                            <td class="task__select">
-                                <label class="checkbox task__checkbox">
-                                    <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
-                                    <span class="checkbox__text"><?=$val['name']; ?></span>
-                                </label>
-                            </td>
+                        <?php if (!$val['done'] || $show_complete_tasks != 0): ?>
+                            <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" >
+                                <td class="task__select">
+                                    <label class="checkbox task__checkbox">
+                                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
+                                        <span class="checkbox__text"><?=$val['name']; ?></span>
+                                    </label>
+                                </td>
 
-                            <td class="task__file">
-                                <a class="download-link" href="#"><?=$val['category'] ?></a>
-                            </td>
+                                <td class="task__file">
+                                    <a class="download-link" href="#"><?=$val['category'] ?></a>
+                                </td>
 
-                            <td class="task__date"><?=$val['date']; ?></td>
-                        </tr>
+                                <td class="task__date"><?=$val['date']; ?></td>
+                            </tr>
+                        <?php endif ?>
                     <?php endforeach ?>
                 </table>
             </main>
