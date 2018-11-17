@@ -133,10 +133,10 @@ $tasks_list = [
                             </td>
 
                             <td class="task__file">
-                                <a class="download-link" href="#"><?=$val['date']; ?></a>
+                                <a class="download-link" href="#"><?=$val['category']; ?></a>
                             </td>
 
-                            <td class="task__date"></td>
+                            <td class="task__date"><?=$val['date']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                     <!--<?php if ($show_complete_tasks == 1): ?>
