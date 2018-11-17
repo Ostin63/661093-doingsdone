@@ -2,6 +2,41 @@
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 $categories = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
+$index = 0;
+$num_count = count($categories);
+$tasks_list = [
+    [
+        'name' => 'Собеседование в IT компании',
+        'date' => '01.12.2018',
+        'category' => 'Работа',
+        'done' => false
+    ], [
+        'name' => 'Выполнить тестовое задание',
+        'date' => '25.12.2018',
+        'category' => 'Работа',
+        'done' => false
+    ], [
+        'name' => 'Сделать задание первого раздела',
+        'date' => '21.12.2018',
+        'category' => 'Учеба',
+        'done' => true
+    ], [
+        'name' => 'Встреча с другом',
+        'date' => '22.12.2018',
+        'category' => 'Входящие',
+        'done' => false
+    ], [
+        'name' => 'Купить корм для кота',
+        'date' => null,
+        'category' => 'Домашние дела',
+        'done' => 'Нет'
+    ], [
+        'name' => 'Заказать пиццу',
+        'date' => null,
+        'category' => 'Домашние дела',
+        'done' => false
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -48,10 +83,13 @@ $categories = ["Входящие", "Учеба", "Работа", "Домашни
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
+                        <?php while($index < $num_count): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Название проекта</a>
+                            <a class="main-navigation__list-item-link" href="#"><?=$categories[$index];?></a>
                             <span class="main-navigation__list-item-count">0</span>
                         </li>
+                            <?php $index++; ?>
+                        <?php endwhile; ?>
                     </ul>
                 </nav>
 
