@@ -2,8 +2,6 @@
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 $categories = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
-$index = 0;
-$num_count = count($categories);
 $tasks_list = [
     [
         'name' => 'Собеседование в IT компании',
@@ -84,13 +82,13 @@ $tasks_list = [
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <?php while($index < $num_count): ?>
+                        <?php foreach ($categories as $val): ?>
                             <li class="main-navigation__list-item">
-                                <a class="main-navigation__list-item-link" href="#"><?=$categories[$index];?></a>
+                                <a class="main-navigation__list-item-link" href="#"><?=$val ?></a>
                                 <span class="main-navigation__list-item-count">0</span>
                             </li>
-                            <?php $index++; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach ?>
+
                     </ul>
                 </nav>
 
@@ -124,36 +122,21 @@ $tasks_list = [
                 </div>
                 <table class="tasks">
                     <?php foreach ($tasks_list as $key => $val): ?>
-                        <tr class="tasks__item task <?= ($val['done'] == true) ? "task--completed" : "" ?>" <?= ($val['done'] == true) & ($show_complete_tasks == 0) ? "hidden" : "" ?>>
+                        <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" <?= ($val['done'] && $show_complete_tasks == 0) ? "hidden" : "" ?>>
                             <td class="task__select">
                                 <label class="checkbox task__checkbox">
-                                    <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= ($val['done'] == true) ? "checked" : "" ?>>
+                                    <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
                                     <span class="checkbox__text"><?=$val['name']; ?></span>
                                 </label>
                             </td>
 
                             <td class="task__file">
-                                <a class="download-link" href="#"><?=$val['category']; ?></a>
+                                <a class="download-link" href="#"><?=$val['category'] ?></a>
                             </td>
 
                             <td class="task__date"><?=$val['date']; ?></td>
                         </tr>
-                    <?php endforeach; ?>
-                    <!--<?php if ($show_complete_tasks == 1): ?>
-                        <tr class="tasks__item task task--completed">
-                            <td class="task__select">
-                                <label class="checkbox task__checkbox">
-                                    <input class="checkbox__input visually-hidden" type="checkbox" checked>
-                                    <span class="checkbox__text">Записаться на интенсив "Базовый PHP"</span>
-                                </label>
-                            </td>
-                            <td class="task__date">10.10.2018</td>
-
-                            <td class="task__controls">
-                            </td>
-                        </tr>
-                    <?php endif; ?>-->
-                    <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
+                    <?php endforeach ?>
                 </table>
             </main>
         </div>
