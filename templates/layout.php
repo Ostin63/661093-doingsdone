@@ -1,58 +1,10 @@
-<?php
-//Функция подсчета задач по категориям
-function countTasks($tasks_list, $val) {
-    $tasksAmount = 0;
-    foreach ($tasks_list as $task) {
-        if ($task['category'] === $val) {
-            $tasksAmount ++;
-        }
-    }
-    return $tasksAmount;
-}
-// показывать или нет выполненные задачи
-$show_complete_tasks = rand(0, 1);
-$categories = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
-$tasks_list = [
-    [
-        'name' => 'Собеседование в IT компании',
-        'date' => '01.12.2018',
-        'category' => 'Работа',
-        'done' => false
-    ], [
-        'name' => 'Выполнить тестовое задание',
-        'date' => '25.12.2018',
-        'category' => 'Работа',
-        'done' => false
-    ], [
-        'name' => 'Сделать задание первого раздела',
-        'date' => '21.12.2018',
-        'category' => 'Учеба',
-        'done' => true
-    ], [
-        'name' => 'Встреча с другом',
-        'date' => '22.12.2018',
-        'category' => 'Входящие',
-        'done' => false
-    ], [
-        'name' => 'Купить корм для кота',
-        'date' => null,
-        'category' => 'Домашние дела',
-        'done' => false
-    ], [
-        'name' => 'Заказать пиццу',
-        'date' => null,
-        'category' => 'Домашние дела',
-        'done' => false
-    ]
-];
 
-?>
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title>Дела в порядке</title>
+    <title>Дела в порядке|<?=$page_name;?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
@@ -107,49 +59,7 @@ $tasks_list = [
             </section>
 
             <main class="content__main">
-                <h2 class="content__main-heading">Список задач</h2>
-
-                <form class="search-form" action="index.php" method="post">
-                    <input class="search-form__input" type="text" name="" value="" placeholder="Поиск по задачам">
-
-                    <input class="search-form__submit" type="submit" name="" value="Искать">
-                </form>
-
-                <div class="tasks-controls">
-                    <nav class="tasks-switch">
-                        <a href="/" class="tasks-switch__item tasks-switch__item--active">Все задачи</a>
-                        <a href="/" class="tasks-switch__item">Повестка дня</a>
-                        <a href="/" class="tasks-switch__item">Завтра</a>
-                        <a href="/" class="tasks-switch__item">Просроченные</a>
-                    </nav>
-
-                    <label class="checkbox">
-                        <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-                        <input class="checkbox__input visually-hidden show_completed"
-                               type="checkbox" <?= ($show_complete_tasks == 1) ? "checked" : "" ?>>
-                        <span class="checkbox__text">Показывать выполненные</span>
-                    </label>
-                </div>
-                <table class="tasks">
-                    <?php foreach ($tasks_list as $key => $val): ?>
-                        <?php if (!$val['done'] || $show_complete_tasks == 1): ?>
-                            <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" >
-                                <td class="task__select">
-                                    <label class="checkbox task__checkbox">
-                                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
-                                        <span class="checkbox__text"><?=$val['name']; ?></span>
-                                    </label>
-                                </td>
-
-                                <td class="task__file">
-                                    <a class="download-link" href="#"><?=$val['category'] ?></a>
-                                </td>
-
-                                <td class="task__date"><?=$val['date']; ?></td>
-                            </tr>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </table>
+                <?=$content_main;?>
             </main>
         </div>
     </div>
