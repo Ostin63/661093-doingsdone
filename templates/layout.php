@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Дела в порядке|<?=$page_name;?></title>
+    <title><?=$page_name;?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
@@ -59,7 +59,7 @@
             </section>
 
             <main class="content__main">
-                <?=$content_main;?>
+                <?=$content;?>
             </main>
         </div>
     </div>
