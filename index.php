@@ -1,4 +1,14 @@
 <?php
+//Функция подсчета задач по категориям
+function countTasks($tasks_list, $val) {
+    $amount_tasks = 0;
+    foreach ($tasks_list as $task) {
+        if ($task['category'] === $val) {
+            $amount_tasks ++;
+        }
+    }
+    return $amount_tasks;
+}
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 $categories = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
@@ -85,7 +95,7 @@ $tasks_list = [
                         <?php foreach ($categories as $val): ?>
                             <li class="main-navigation__list-item">
                                 <a class="main-navigation__list-item-link" href="#"><?=$val ?></a>
-                                <span class="main-navigation__list-item-count">0</span>
+                                <span class="main-navigation__list-item-count"><?= countTasks($tasks_list, $val); ?></span>
                             </li>
                         <?php endforeach ?>
 
