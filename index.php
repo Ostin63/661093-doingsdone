@@ -3,6 +3,9 @@
 require_once('functions.php');
 require_once('data.php');
 
+// защита от xss
+$tasks_list = filter_data($tasks_list, ['name','category']);
+
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
@@ -13,6 +16,7 @@ $content = include_template('index.php', [
 ]);
 // заголовок
 $page_name = 'Дела в поряке';
+
 // формируем гланую страницу
 $layout_content = include_template('layout.php', [
     'content' => $content,

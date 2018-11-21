@@ -27,9 +27,11 @@ function countTasks($tasks_list, $val) {
 }
 
 // функция защиты от XSS
-function filter_data($tasks_list, $filterKey) {
-    foreach ($tasks_list as $key => $task) {
-        $tasks_list[$key][$filterKey] = strip_tags($task[$filterKey]);
+function filter_data($tasks_list, $keys) {
+    foreach ($tasks_list as &$val) {
+        foreach ($keys as $key) {
+            $val[$key] = strip_tags($val[$key]);
+        }
     }
     return $tasks_list;
 }
