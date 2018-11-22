@@ -16,8 +16,7 @@
 
     <label class="checkbox">
         <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-        <input class="checkbox__input visually-hidden show_completed"
-               type="checkbox" <?= ($show_complete_tasks == 1) ? "checked" : "" ?>>
+        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?= ($show_complete_tasks == 1) ? "checked" : "" ?>>
         <span class="checkbox__text">Показывать выполненные</span>
     </label>
 </div>
@@ -28,15 +27,15 @@
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
-                        <span class="checkbox__text"><?=$val['name']; ?></span>
+                        <span class="checkbox__text"><?=htmlspecialchars($val['name']) ?></span>
                     </label>
                 </td>
 
                 <td class="task__file">
-                    <a class="download-link" href="#"><?=$val['category'] ?></a>
+                    <a class="download-link" href="#"><?=htmlspecialchars($val['category']) ?></a>
                 </td>
 
-                <td class="task__date"><?=$val['date']; ?></td>
+                <td class="task__date"><?=$val['date'] ?></td>
             </tr>
         <?php endif ?>
     <?php endforeach ?>
