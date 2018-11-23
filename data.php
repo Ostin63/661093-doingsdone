@@ -33,6 +33,3 @@ $tasks_list = [
         'done' => false
     ]
 ];
-
-
-

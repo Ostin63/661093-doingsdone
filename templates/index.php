@@ -21,9 +21,9 @@
     </label>
 </div>
 <table class="tasks">
-    <?php foreach ($tasks_list as $key => $val): ?>
+    <?php foreach ($tasks_list as $val): ?>
         <?php if (!$val['done'] || $show_complete_tasks == 1): ?>
-            <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?>" >
+            <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?><?=isTaskImportant($val['date'], 24) ? "task--important" : "" ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
