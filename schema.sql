@@ -27,11 +27,8 @@ CREATE TABLE tasks (
 `date_creation` TIMESTAMP,
 `date_completion` TIMESTAMP,
 `date_term` TIMESTAMP,
-`name` VARCHAR(255) NOT NULL,
 `file` VARCHAR(255),
-`category_id` INT NOT NULL,
 `done` BIT NOT NULL DEFAULT b'0',
-PRIMARY KEY (`id`),
-UNIQUE KEY `name`(`name`),
-KEY `category`(`category_id`)
+`project_id` INT UNSIGNED NOT NULL,
+PRIMARY KEY (`id`)
 );
