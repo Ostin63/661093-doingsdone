@@ -27,7 +27,7 @@ function countTasks($tasks_list, $val) {
 }
 //функция проверки остатка времени до выполнения задачи
 function isTaskImportant($taskDate, $importantHours) {
-    if ($taskDate == null) return  false;
+    if (empty($taskDate)) return  false;
     $seconds_in_hour = 3600;
     $ts = time();
     $end_ts= strtotime($taskDate);
