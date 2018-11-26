@@ -17,8 +17,9 @@ UNIQUE KEY `email`(`email`)
 CREATE TABLE projects (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(64) NOT NULL,
+`author_id` INT UNSIGNED NOT NULL,
 PRIMARY KEY (`id`),
-UNIQUE KEY `name`(`name`)
+UNIQUE KEY `author_name`(`author_id`, `name`)
 );
 
 CREATE TABLE tasks (
@@ -34,5 +35,3 @@ PRIMARY KEY (`id`),
 UNIQUE KEY `name`(`name`),
 KEY `category`(`category_id`)
 );
-
-
