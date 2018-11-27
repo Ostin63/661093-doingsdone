@@ -40,7 +40,7 @@ SELECT *  FROM tasks WHERE  project_id = 3
 UPDATE tasks SET done = 1 WHERE id = 2
 
 //получить все задачи для завтрашнего дня
-SELECT *  FROM tasks WHERE date_completion > '2018-11-27 23:59:59'
+SELECT *  FROM tasks WHERE date_completion BETWEEN '2018-11-28' AND '2018-11-29'
 
 //обновить название задачи по её идентификатору
 UPDATE tasks SET name = 'Купить кота' WHERE id = 4
