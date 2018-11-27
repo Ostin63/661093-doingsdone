@@ -5,7 +5,7 @@ DEFAULT COLLATE utf8_general_ci;
 USE doingsdone;
 
 CREATE TABLE users (
-`id` INT NOT AUTO_INCREMENT,
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 `date_creation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 `email` VARCHAR(255) NOT NULL,
 `name` VARCHAR(255) NOT NULL,
@@ -24,12 +24,13 @@ UNIQUE KEY `author_name`(`author_id`, `name`)
 
 CREATE TABLE tasks (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`date_creation` TIMESTAMP,
-`date_completion` TIMESTAMP,
-`date_term` TIMESTAMP,
+`date_creation` DATETIME,
+`date_completion` DATETIME,
+`date_term` DATETIME,
 `file` VARCHAR(255),
 `name` VARCHAR(255) NOT NULL,
 `done` BIT NOT NULL DEFAULT b'0',
 `project_id` INT UNSIGNED NOT NULL,
-PRIMARY KEY (`id`)
+PRIMARY KEY (`id`),
+UNIQUE KEY `project_name`(`project_id`, `name`)
 );
