@@ -29,3 +29,18 @@ INSERT INTO tasks (name, date_completion, done, project_id,  author_id) VALUES
 ('Встреча с другом', '2018-12-22', false,  1, 3),
 ('Купить корм для кота', null, false,  4, 3),
 ('Заказать пиццу', '2018-12-26', false,  4, 3);
+
+//получить список из всех проектов для одного пользователя
+SELECT *  FROM projects WHERE  author_id = 1
+
+//получить список из всех задач для одного проекта
+SELECT *  FROM tasks WHERE  project_id = 3
+
+//пометить задачу как выполненную
+UPDATE tasks SET done = 0 WHERE id = 2
+
+//получить все задачи для завтрашнего дня
+SELECT *  FROM tasks WHERE date_completion = '2018-11-28'
+
+//обновить название задачи по её идентификатору
+UPDATE tasks SET name = 'Купить кота' WHERE id = 4
