@@ -37,7 +37,7 @@ SELECT *  FROM projects WHERE  author_id = 1
 SELECT *  FROM tasks WHERE  project_id = 3
 
 //пометить задачу как выполненную
-UPDATE tasks SET done = 0 WHERE id = 2
+UPDATE tasks SET done = 1 WHERE id = 2
 
 //получить все задачи для завтрашнего дня
 SELECT *  FROM tasks WHERE date_completion = '2018-11-28'
