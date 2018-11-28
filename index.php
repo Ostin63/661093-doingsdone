@@ -1,7 +1,21 @@
 <?php
 // подключаем файлы
 require_once('functions.php');
-require_once('data.php');
+//require_once('data.php');
+$user = 1;
+
+$con = mysqli_connect('php-project', 'root', '', 'doingsdone');
+mysqli_set_charset($con, "utf8");
+
+$sql = "SELECT *  FROM projects WHERE author_id = $user";
+$result = mysqli_query($con, $sql);
+
+$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+$sql = "SELECT *  FROM tasks WHERE project_id IN (SELECT id FROM projects WHERE author_id = $user)";
+$result = mysqli_query($con, $sql);
+
+$tasks_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);

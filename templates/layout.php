@@ -46,8 +46,8 @@
                     <ul class="main-navigation__list">
                         <?php foreach ($categories as $val): ?>
                             <li class="main-navigation__list-item">
-                                <a class="main-navigation__list-item-link" href="#"><?=$val ?></a>
-                                <span class="main-navigation__list-item-count"><?= countTasks($tasks_list, $val); ?></span>
+                                <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($val['name']) ?></a>
+                                <span class="main-navigation__list-item-count"><?= countTasks($tasks_list, $val['id']); ?></span>
                             </li>
                         <?php endforeach ?>
 
