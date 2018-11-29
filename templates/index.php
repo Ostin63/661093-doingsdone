@@ -21,21 +21,21 @@
     </label>
 </div>
 <table class="tasks">
-    <?php foreach ($tasks_list as $val): ?>
-        <?php if (!$val['done'] || $show_complete_tasks == 1): ?>
-            <tr class="tasks__item task <?= $val['done'] ? "task--completed" : "" ?><?=isTaskImportant($val['date_completion'], 24) ? "task--important" : "" ?>">
+    <?php foreach ($tasksList as $taskInfo): ?>
+        <?php if (!$taskInfo['done'] || $show_complete_tasks == 1): ?>
+            <tr class="tasks__item task <?=$taskInfo['done'] ? "task--completed" : "" ?> <?=isTaskImportant($taskInfo['date_completion'], 24) ? "task--important" : "" ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
-                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $val['done'] ? "checked" : "" ?>>
-                        <span class="checkbox__text"><?=htmlspecialchars($val['name']) ?></span>
+                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $taskInfo['done'] ? "checked" : "" ?>>
+                        <span class="checkbox__text"><?=htmlspecialchars($taskInfo['name']) ?></span>
                     </label>
                 </td>
 
                 <td class="task__file">
-                    <a class="download-link" href="#"><?=htmlspecialchars($val['id']) ?></a>
+                    <a class="download-link" href="#"><?=htmlspecialchars($taskInfo['project_name']) ?></a>
                 </td>
 
-                <td class="task__date"><?=$val['date_completion']?></td>
+                <td class="task__date"><?= date('d.m.Y', strtotime($taskInfo['date_completion'])) ?></td>
             </tr>
         <?php endif ?>
     <?php endforeach ?>

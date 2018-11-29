@@ -15,10 +15,25 @@ function include_template($name, $data) {
 
     return $result;
 }
+
+//Функция вызова задач для одного автора
+function getCategories($con, $user) {
+    $sql = "SELECT *  FROM projects WHERE author_id = $user" ;
+    $result = mysqli_query($con, $sql);
+    return $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+//Функция вызова имен категорий для одного автора
+function getTasksForAuthorId ($con, $user) {
+    $sql = "SELECT DISTINCT tasks.*, projects.name as project_name FROM tasks INNER JOIN projects ON tasks.project_id = projects.id WHERE projects.author_id = $user";
+    $result = mysqli_query($con, $sql);
+    return $tasksList = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
 //Функция подсчета задач по категориям
-function countTasks($tasks_list, $val) {
+function countTasks($tasksList, $val) {
     $tasksAmount = 0;
-    foreach ($tasks_list as $task) {
+    foreach ($tasksList as $task) {
         if ($task['project_id'] === $val) {
             $tasksAmount ++;
         }
