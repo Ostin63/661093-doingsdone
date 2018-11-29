@@ -31,10 +31,10 @@ function getTasksForAuthorId ($con, $user) {
 }
 
 //Функция подсчета задач по категориям
-function countTasks($tasksList, $val) {
+function countTasks($tasksList, $taskInfo) {
     $tasksAmount = 0;
     foreach ($tasksList as $task) {
-        if ($task['project_id'] === $val) {
+        if ($task['project_id'] === $taskInfo) {
             $tasksAmount ++;
         }
     }
