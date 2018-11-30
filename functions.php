@@ -18,23 +18,29 @@ function include_template($name, $data) {
 
 //Функция вызова задач для одного автора
 function getCategories($con, $user) {
-    $sql = "SELECT *  FROM projects WHERE author_id = $user" ;
-    $result = mysqli_query($con, $sql);
-    return $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $sql = "SELECT * FROM projects WHERE author_id = ?";
+    $stmt = db_get_prepare_stmt($con, $sql, [$user]);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $categories;
 }
 
 //Функция вызова имен категорий для одного автора
 function getTasksForAuthorId ($con, $user) {
-    $sql = "SELECT DISTINCT tasks.*, projects.name as project_name FROM tasks INNER JOIN projects ON tasks.project_id = projects.id WHERE projects.author_id = $user";
-    $result = mysqli_query($con, $sql);
-    return $tasksList = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $sql = "SELECT DISTINCT tasks.*, projects.name AS project_name FROM tasks INNER JOIN projects ON tasks.project_id = projects.id WHERE projects.author_id = ?";
+    $stmt = db_get_prepare_stmt($con, $sql, [$user]);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $tasksList;
 }
 
 //Функция подсчета задач по категориям
-function countTasks($tasksList, $taskInfo) {
+function countTasks($tasksList, $projectId) {
     $tasksAmount = 0;
     foreach ($tasksList as $task) {
-        if ($task['project_id'] === $taskInfo) {
+        if ($task['project_id'] === $projectId) {
             $tasksAmount ++;
         }
     }
