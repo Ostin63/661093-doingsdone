@@ -35,7 +35,7 @@
                     <a class="download-link" href="#"><?=htmlspecialchars($taskInfo['project_name']) ?></a>
                 </td>
 
-                <td class="task__date"><?= date('d.m.Y', strtotime($taskInfo['date_completion'])) ?></td>
+                <td class="task__date"><?= $taskInfo['date_completion']==null ? '' : date('d.m.Y', strtotime($taskInfo['date_completion'])) ?></td>
             </tr>
         <?php endif ?>
     <?php endforeach ?>
