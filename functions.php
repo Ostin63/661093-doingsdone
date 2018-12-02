@@ -27,9 +27,28 @@ function getProjects($con, $user) {
 }
 
 //Функция вызова имен категорий для одного автора
-function getTasksForAuthorId ($con, $user) {
-    $sql = "SELECT DISTINCT tasks.*, projects.name AS project_name FROM tasks INNER JOIN projects ON tasks.project_id = projects.id WHERE projects.author_id = ?";
+function getTasksForAuthorId($con, $user) {
+    $sql = "
+      SELECT DISTINCT tasks.*,
+      projects.name AS project_name
+      FROM tasks
+      INNER JOIN projects ON tasks.project_id = projects.id
+      WHERE projects.author_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$user]);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $tasksList;
+}
+
+function getTasksForAuthorIdAndProjectId($con, $user, $project) {
+    $sql = "
+      SELECT DISTINCT tasks.*,
+      projects.name AS project_name
+      FROM tasks
+      INNER JOIN projects ON tasks.project_id = projects.id
+      WHERE projects.author_id = ? AND tasks.project_id = ?";
+    $stmt = db_get_prepare_stmt($con, $sql, [$user, $project]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
     $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);

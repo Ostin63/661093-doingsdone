@@ -16,8 +16,11 @@ if ($con == false) {
 $show_complete_tasks = rand(0, 1);
 
 // подключаем контент
+if (isset($_GET['project_id'])) {
+    $project = $_GET['project_id'];
+}
 $content = include_template('index.php', [
-    'tasksList' => getTasksForAuthorId($con, $user),
+    'tasksList' => isset($project) ? getTasksForAuthorIdAndProjectId($con, $user, $project) : getTasksForAuthorId($con, $user),
     'show_complete_tasks' => $show_complete_tasks
 ]);
 
