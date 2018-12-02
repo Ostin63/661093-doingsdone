@@ -27,7 +27,7 @@ $page_name = 'Дела в поряке';
 // формируем гланую страницу
 $layout_content = include_template('layout.php', [
     'content' => $content,
-    'categories' => getCategories($con, $user),
+    'projects' => getProjects($con, $user),
     'tasksList' => getTasksForAuthorId($con, $user),
     'page_name' => $page_name
 ]);

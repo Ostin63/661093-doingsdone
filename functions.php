@@ -17,13 +17,13 @@ function include_template($name, $data) {
 }
 
 //Функция вызова задач для одного автора
-function getCategories($con, $user) {
+function getProjects($con, $user) {
     $sql = "SELECT * FROM projects WHERE author_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$user]);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
-    $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    return $categories;
+    $projects = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    return $projects;
 }
 
 //Функция вызова имен категорий для одного автора
