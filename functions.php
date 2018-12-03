@@ -40,8 +40,8 @@ function getTasksForAuthorId($con, $user) {
     $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
     return $tasksList;
 }
-
-function getTasksForAuthorIdAndProjectId($con, $user, $project) {
+//Функция вызова задач для одного проекта
+function getTasksForAuthorIdAndProjected($con, $user, $project) {
     $sql = "
       SELECT DISTINCT tasks.*,
       projects.name AS project_name

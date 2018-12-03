@@ -14,23 +14,25 @@ if ($con == false) {
 
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
+$projects = getProjects($con, $user);
 
-// подключаем контент
 if (isset($_GET['project_id'])) {
     $project = $_GET['project_id'];
 }
+
+// подключаем контент
 $content = include_template('index.php', [
-    'tasksList' => isset($project) ? getTasksForAuthorIdAndProjectId($con, $user, $project) : getTasksForAuthorId($con, $user),
+    'tasksList' => isset($project) ? getTasksForAuthorIdAndProjected($con, $user, $project) : getTasksForAuthorId($con, $user),
     'show_complete_tasks' => $show_complete_tasks
 ]);
 
 // заголовок
 $page_name = 'Дела в поряке';
 
-// формируем гланую страницу
+// формируем главную страницу
 $layout_content = include_template('layout.php', [
     'content' => $content,
-    'projects' => getProjects($con, $user),
+    'projects' => $projects,
     'tasksList' => getTasksForAuthorId($con, $user),
     'page_name' => $page_name
 ]);
