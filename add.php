@@ -19,7 +19,7 @@ $projects = getProjects($con, $userId);
 
 // подключаем контент
 $content = include_template('add.php', [
-
+    'projects' => $projects
 ]);
 
 // заголовок
