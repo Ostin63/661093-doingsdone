@@ -41,7 +41,6 @@ function getTasksForAuthorId($con, $userId) {
     return $tasksList;
 }
 //Функция вызова задач для одного проекта
-
 function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId=null) {
     if(!empty($projectId)) {
         $sql = "

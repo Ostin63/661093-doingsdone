@@ -19,6 +19,7 @@ $projects = getProjects($con, $userId);
 
 $projectId = null;
 
+//проверка типа переменной
 if (isset($_GET['project_id'])) {
     $projectId = (int) $_GET['project_id'];
     if (!idExists($projectId, $projects)) {
@@ -37,7 +38,6 @@ $content = include_template('index.php', [
 $page_name = 'Дела в поряке';
 
 // формируем главную страницу
-
 $layout_content = include_template('layout.php', [
     'content' => $content,
     'projects' => $projects,
