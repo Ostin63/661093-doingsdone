@@ -1,4 +1,47 @@
 <?php
+/**
+ * Создает подготовленное выражение на основе готового SQL запроса и переданных данных
+ *
+ * @param $con mysqli Ресурс соединения
+ * @param $sql string SQL запрос с плейсхолдерами вместо значений
+ * @param array $data Данные для вставки на место плейсхолдеров
+ *
+ * @return mysqli_stmt Подготовленное выражение
+ */
+function db_get_prepare_stmt($con, $sql, $data = []) {
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($data) {
+        $types = '';
+        $stmt_data = [];
+
+        foreach ($data as $value) {
+            $type = null;
+
+            if (is_int($value)) {
+                $type = 'i';
+            }
+            else if (is_string($value)) {
+                $type = 's';
+            }
+            else if (is_double($value)) {
+                $type = 'd';
+            }
+
+            if ($type) {
+                $types .= $type;
+                $stmt_data[] = $value;
+            }
+        }
+
+        $values = array_merge([$stmt, $types], $stmt_data);
+
+        $func = 'mysqli_stmt_bind_param';
+        $func(...$values);
+    }
+
+    return $stmt;
+}
 function include_template($name, $data) {
     $name = 'templates/' . $name;
     $result = '';
@@ -16,7 +59,7 @@ function include_template($name, $data) {
     return $result;
 }
 
-//Функция вызова задач для одного автора
+//Функция вызова проектов для одного автора
 function getProjects($con, $userId) {
     $sql = "SELECT * FROM projects WHERE author_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
@@ -83,6 +126,7 @@ function isTaskImportant($taskDate, $importantHours) {
     $ts_diff = $end_ts - $ts;
     return floor($ts_diff / $seconds_in_hour) <= $importantHours;
 }
+
 function idExists($id, $entityList) {
     foreach($entityList as $entityInfo) {
         if ($id == $entityInfo['id']) {
@@ -90,4 +134,19 @@ function idExists($id, $entityList) {
         }
     }
     return false;
+}
+
+//добавление задач в БД
+function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
+    $sql = "
+    INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
+    (?, NOW(), ?, ?, ?)";
+
+    $stmt = db_get_prepare_stmt($con, $sql,  [$name, $dateCompletion, $file, $projectId]);
+    $res = mysqli_stmt_execute($stmt);
+    if ($res) {
+        $task_id = mysqli_insert_id($con);
+
+        header("Location: php-project/". $task_id);
+    }
 }

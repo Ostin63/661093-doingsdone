@@ -1,18 +1,18 @@
 <h2 class="content__main-heading">Добавление задачи</h2>
 
-<form class="form"  action="add.php" method="post">
+<form class="form"  action="" method="post" enctype="multipart/form-data">
     <div class="form__row">
         <label class="form__label" for="name">Название <sup>*</sup></label>
 
-        <input class="form__input" type="text" name="name" id="name" value="" placeholder="Введите название" required>
+        <input class="form__input" type="text" name="task[name]" id="name" value="" placeholder="Введите название" required>
     </div>
 
     <div class="form__row">
         <label class="form__label" for="project">Проект <sup>*</sup></label>
 
-        <select class="form__input form__input--select" name="project" id="project" required>
+        <select class="form__input form__input--select" name="task[project]" id="project" required>
             <?php foreach ($projects as $project): ?>
-                <option value=""><?= htmlspecialchars($project['name']) ?></option>
+                <option value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
             <?php endforeach ?>
         </select>
     </div>
@@ -20,20 +20,21 @@
     <div class="form__row">
         <label class="form__label" for="date">Дата выполнения</label>
 
-        <input class="form__input form__input--date" type="date" name="date" id="date" value="" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+        <input class="form__input form__input--date" type="date" name="task[date]" id="date" value="" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
     </div>
 
     <div class="form__row">
-        <label class="form__label" for="preview">Файл</label>
+        <label class="form__label" for="file">Файл</label>
 
         <div class="form__input-file">
-            <input class="visually-hidden" type="file" name="preview" id="preview" value="">
+            <input class="visually-hidden" type="file" name="task[file]" id="file" value="">
 
-            <label class="button button--transparent" for="preview">
+            <label class="button button--transparent" for="file">
                 <span>Выберите файл</span>
             </label>
         </div>
     </div>
+
 
     <div class="form__row form__row--controls">
         <input class="button" type="submit" name="" value="Добавить">

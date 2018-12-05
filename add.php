@@ -2,7 +2,6 @@
 $userId = 1;
 // подключаем файлы
 require_once('functions.php');
-require_once('mysql_helper.php');
 
 //соединение с сервером
 $con = mysqli_connect('php-project', 'root', '', 'doingsdone');
@@ -16,6 +15,20 @@ if ($con == false) {
 $show_complete_tasks = rand(0, 1);
 
 $projects = getProjects($con, $userId);
+
+
+//валидация формы
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $task = $_POST['task'];
+
+
+
+    $filename = uniqid() . '-' . $_FILES['task']['name']['file'];
+    $task['file'] = $filename;
+    move_uploaded_file($_FILES['task']['tmp_name']['file'], 'uploads/' . $filename);
+
+    addTaskform($con, $task['name'], $task['date'], $task['file'], $task['project']);
+}
 
 // подключаем контент
 $content = include_template('add.php', [

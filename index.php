@@ -2,7 +2,6 @@
 $userId = 1;
 // подключаем файлы
 require_once('functions.php');
-require_once('mysql_helper.php');
 
 //соединение с сервером
 $con = mysqli_connect('php-project', 'root', '', 'doingsdone');
