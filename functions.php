@@ -42,7 +42,7 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
 
     return $stmt;
 }
-function include_template($name, $data) {
+function include_template($name, $data = []) {
     $name = 'templates/' . $name;
     $result = '';
 
@@ -137,16 +137,10 @@ function idExists($id, $entityList) {
 }
 
 //добавление задач в БД
-function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
+function addTaskform($con, $name, $dateCompletion, $file, $projectId) {
     $sql = "
     INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
     (?, NOW(), ?, ?, ?)";
-
     $stmt = db_get_prepare_stmt($con, $sql,  [$name, $dateCompletion, $file, $projectId]);
-    $res = mysqli_stmt_execute($stmt);
-    if ($res) {
-        $task_id = mysqli_insert_id($con);
-
-        header("Location: php-project/". $task_id);
-    }
+    mysqli_stmt_execute($stmt);
 }

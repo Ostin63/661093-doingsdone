@@ -16,24 +16,44 @@ $show_complete_tasks = rand(0, 1);
 
 $projects = getProjects($con, $userId);
 
-
 //валидация формы
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $task = $_POST['task'];
 
+    $required = ['name'];
+    $errors = [];
+    foreach ($required as $key) {
+        if (empty($task[$key])) {
+            $errors[$key] = 'Это поле надо заполнить';
+        }
+    }
+    if (isset($_FILES['task']['size']['file']) && $_FILES['task']['size']['file'] > 0) {
+        $file_size = $_FILES['task']['size']['file'];
+        if ($file_size > 128000) {
+            $errors['file'] = 'Большой файл';
+        } else {
+            $filename = uniqid() . '-' . $_FILES['task']['name']['file'];
+            $task['file'] = $filename;
+            move_uploaded_file($_FILES['task']['tmp_name']['file'], 'uploads/' . $filename);
+        }
+    } else {
+        $task['file'] = null;
+    }
 
-
-    $filename = uniqid() . '-' . $_FILES['task']['name']['file'];
-    $task['file'] = $filename;
-    move_uploaded_file($_FILES['task']['tmp_name']['file'], 'uploads/' . $filename);
-
-    addTaskform($con, $task['name'], $task['date'], $task['file'], $task['project']);
+    if (count($errors)) {
+        $content = include_template('add.php', ['projects' => $projects, 'errors' => $errors]);
+    }
+    else {
+        addTaskform($con, $task['name'], $task['date'], $task['file'], $task['project']);
+        header("Location: /index.php");
+        exit();
+    }
+} else {
+    // подключаем контент
+    $content = include_template('add.php', [
+        'projects' => $projects
+    ]);
 }
-
-// подключаем контент
-$content = include_template('add.php', [
-    'projects' => $projects
-]);
 
 // заголовок
 $page_name = 'Дела в поряке';
