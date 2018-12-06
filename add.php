@@ -24,13 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = [];
     foreach ($required as $key) {
         if (empty($task[$key])) {
-            $errors[$key] = 'Это поле надо заполнить';
+            $errors[$key] = 'Пожалуйста, исправьте ошибки в форме';
         }
     }
     if (isset($_FILES['task']['size']['file']) && $_FILES['task']['size']['file'] > 0) {
         $file_size = $_FILES['task']['size']['file'];
         if ($file_size > 128000) {
-            $errors['file'] = 'Большой файл';
+            $errors['file'] = 'Большой файл. Пожалуйста, исправьте ошибки в форме ';
         } else {
             $filename = uniqid() . '-' . $_FILES['task']['name']['file'];
             $task['file'] = $filename;
@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $task['file'] = null;
     }
-
+    if ($task['date'] == '') {
+        $task['date'] = null;
+    }
     if (count($errors)) {
         $content = include_template('add.php', ['projects' => $projects, 'errors' => $errors]);
     }
@@ -54,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'projects' => $projects
     ]);
 }
-
 // заголовок
 $page_name = 'Дела в поряке';
 
