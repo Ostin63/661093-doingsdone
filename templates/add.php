@@ -14,7 +14,7 @@
         <?php $classname = isset($errors['project']) ? "form__input--error" : ""; $value = isset($task['project']) ? $task['project'] : ""?>
         <select class="form__input form__input--select" name="task[project]" id="project">
             <?php foreach ($projects as $project): ?>
-                <option value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
+                <option <?= $project['id'] == $value ? 'selected' : '' ?> value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
             <?php endforeach ?>
         </select>
         <?php if (isset($errors['project'])): ?>

@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $task['file'] = null;
     }
     if (count($errors) > 0) {
-        $content = include_template('add.php', ['projects' => $projects, 'errors' => $errors]);
+        $content = include_template('add.php', ['projects' => $projects, 'task' => $task, 'errors' => $errors]);
     }
     else {
         addTaskform($con, $task['name'], $task['date'], $task['file'], $task['project']);
