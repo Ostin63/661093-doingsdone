@@ -26,7 +26,7 @@ CREATE TABLE tasks (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 `date_creation` DATETIME,
 `date_completion` DATETIME,
-`date_term` DATETIME,
+`date_term` DATETIME DEFAULT NULL,
 `file` VARCHAR(255),
 `name` VARCHAR(255) NOT NULL,
 `done` BIT NOT NULL DEFAULT b'0',

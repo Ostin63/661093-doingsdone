@@ -1,22 +1,8 @@
 <?php
-function include_template($name, $data) {
-    $name = 'templates/' . $name;
-    $result = '';
+require_once('connect.php');
+require_once('mysql_helper.php');
 
-    if (!file_exists($name)) {
-        return $result;
-    }
-
-    ob_start();
-    extract($data);
-    require $name;
-
-    $result = ob_get_clean();
-
-    return $result;
-}
-
-//Функция вызова задач для одного автора
+//Функция вызова проектов для одного автора
 function getProjects($con, $userId) {
     $sql = "SELECT * FROM projects WHERE author_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
@@ -41,7 +27,6 @@ function getTasksForAuthorId($con, $userId) {
     return $tasksList;
 }
 //Функция вызова задач для одного проекта
-
 function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId=null) {
     if(!empty($projectId)) {
         $sql = "
@@ -84,6 +69,7 @@ function isTaskImportant($taskDate, $importantHours) {
     $ts_diff = $end_ts - $ts;
     return floor($ts_diff / $seconds_in_hour) <= $importantHours;
 }
+
 function idExists($id, $entityList) {
     foreach($entityList as $entityInfo) {
         if ($id == $entityInfo['id']) {
@@ -91,4 +77,19 @@ function idExists($id, $entityList) {
         }
     }
     return false;
+}
+
+//добавление задач в БД
+function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
+    $sql = "
+    INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
+    (?, NOW(), ?, ?, ?)";
+    $stmt = db_get_prepare_stmt($con, $sql,  [$name, $dateCompletion, $file, $projectId]);
+    mysqli_stmt_execute($stmt);
+}
+
+function validateDate($date, $format = 'Y-m-d')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
 }
