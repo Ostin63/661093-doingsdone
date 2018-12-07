@@ -1,63 +1,6 @@
 <?php
-/**
- * Создает подготовленное выражение на основе готового SQL запроса и переданных данных
- *
- * @param $con mysqli Ресурс соединения
- * @param $sql string SQL запрос с плейсхолдерами вместо значений
- * @param array $data Данные для вставки на место плейсхолдеров
- *
- * @return mysqli_stmt Подготовленное выражение
- */
-function db_get_prepare_stmt($con, $sql, $data = []) {
-    $stmt = mysqli_prepare($con, $sql);
-
-    if ($data) {
-        $types = '';
-        $stmt_data = [];
-
-        foreach ($data as $value) {
-            $type = null;
-
-            if (is_int($value)) {
-                $type = 'i';
-            }
-            else if (is_string($value)) {
-                $type = 's';
-            }
-            else if (is_double($value)) {
-                $type = 'd';
-            }
-
-            if ($type) {
-                $types .= $type;
-                $stmt_data[] = $value;
-            }
-        }
-
-        $values = array_merge([$stmt, $types], $stmt_data);
-
-        $func = 'mysqli_stmt_bind_param';
-        $func(...$values);
-    }
-
-    return $stmt;
-}
-function include_template($name, $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
-
-    if (!file_exists($name)) {
-        return $result;
-    }
-
-    ob_start();
-    extract($data);
-    require $name;
-
-    $result = ob_get_clean();
-
-    return $result;
-}
+require_once('connect.php');
+require_once('mysql_helper.php');
 
 //Функция вызова проектов для одного автора
 function getProjects($con, $userId) {
@@ -137,10 +80,16 @@ function idExists($id, $entityList) {
 }
 
 //добавление задач в БД
-function addTaskform($con, $name, $dateCompletion, $file, $projectId) {
+function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
     $sql = "
     INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
     (?, NOW(), ?, ?, ?)";
     $stmt = db_get_prepare_stmt($con, $sql,  [$name, $dateCompletion, $file, $projectId]);
     mysqli_stmt_execute($stmt);
+}
+
+function validateDate($date, $format = 'd.m.Y')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
 }
