@@ -85,11 +85,35 @@ function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
     INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
     (?, NOW(), ?, ?, ?)";
     $stmt = db_get_prepare_stmt($con, $sql,  [$name, $dateCompletion, $file, $projectId]);
-    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_execute($stmt);
 }
 
+//проверки формата даты
 function validateDate($date, $format = 'Y-m-d')
 {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
+}
+
+//добавление пользователя
+function addUser($con, $email, $name,  $password) {
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = 'INSERT INTO users (date_creation, email, name, password, token) VALUES (NOW(), ?, ?, ?, "")';
+    $stmt = db_get_prepare_stmt($con, $sql, [$email, $name, $password]);
+    return mysqli_stmt_execute($stmt);
+}
+
+//проверка пользователя
+function userCheck($con, $email) {
+    $email = mysqli_real_escape_string($con, $email);
+    $sql = "SELECT id FROM users WHERE email = '$email'";
+    return mysqli_query($con, $sql);
+}
+
+//проверка почты пользователя
+function mailCheck($con, $email) {
+    $email = mysqli_real_escape_string($con, $email);
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    return mysqli_query($con, $sql);
 }
