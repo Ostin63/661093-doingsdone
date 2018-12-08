@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // подключаем контент
-$content = include_template('register.php', $tpl_data);
+$content = include_template('auth.php', $tpl_data);
 $content_task = include_template('content-info.php');
 $content_user = include_template('header-button-reg.php');
 $button_footer = null;
