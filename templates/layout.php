@@ -20,42 +20,12 @@
                 <img src="img/logo.png" width="153" height="42" alt="Логотип Дела в порядке">
             </a>
 
-            <div class="main-header__side">
-                <a class="main-header__side-item button button--plus open-modal" href="/add.php">Добавить
-                    задачу</a>
-
-                <div class="main-header__side-item user-menu">
-                    <div class="user-menu__image">
-                        <img src="img/user-pic.jpg" width="40" height="40" alt="Пользователь">
-                    </div>
-
-                    <div class="user-menu__data">
-                        <p>Константин</p>
-
-                        <a href="#">Выйти</a>
-                    </div>
-                </div>
-            </div>
+            <?=$content_user;?>
         </header>
 
         <div class="content">
             <section class="content__side">
-                <h2 class="content__side-heading">Проекты</h2>
-
-                <nav class="main-navigation">
-                    <ul class="main-navigation__list">
-                        <?php foreach ($projects as $project): ?>
-                            <li class="main-navigation__list-item">
-                                <a class="main-navigation__list-item-link" href="index.php?project_id=<?= $project['id'] ?>"><?= htmlspecialchars($project['name']) ?></a>
-                                <span class="main-navigation__list-item-count"><?= (countTasks($tasksList, $project['id'])); ?></span>
-                            </li>
-                        <?php endforeach ?>
-
-                    </ul>
-                </nav>
-
-                <a class="button button--transparent button--plus content__side-button"
-                   href="pages/form-project.html" target="project_add">Добавить проект</a>
+                <?=$content_task;?>
             </section>
 
             <main class="content__main">
@@ -73,7 +43,7 @@
             <p>Веб-приложение для удобного ведения списка дел.</p>
         </div>
 
-        <a class="main-footer__button button button--plus" href="/add.php">Добавить задачу</a>
+        <?=$button_footer;?>
 
         <div class="main-footer__social social">
             <span class="visually-hidden">Мы в соцсетях:</span>
