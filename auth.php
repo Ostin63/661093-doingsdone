@@ -19,12 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = "Это поле обязательно";
         }
     }
-    if (!filter_var('email', FILTER_VALIDATE_EMAIL)){
-        $errors['email'] = 'Е-amil указан не верно';
-    }
-        if (empty($errors)) {
+    if (empty($errors)) {
         $res = userCheck($con, $form['email']);
-
+        if (!filter_var('email', FILTER_VALIDATE_EMAIL)){
+            $errors['email'] = 'Е-amil указан не верно';
+        }
         if (mysqli_num_rows($res) > 0) {
             $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
         }
