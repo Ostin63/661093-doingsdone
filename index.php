@@ -2,18 +2,18 @@
 // подключаем файлы
 require_once('functions.php');
 session_start();
-$userId = 1;
+
 // заголовок
 $page_name = 'Дела в поряке';
-/*
-if (isset($_SESSION['id'])) {
-    print($_SESSION['id']);
-    $_SESSION['id'] = $userId;
-    if (!isset($_SESSION['user']['id'])) {
-        header("Location: /geuest.php");
-        exit();
-    }
-}*/
+
+if (!isset($_SESSION['user']['id'])) {
+    header("Location: /guest.php");
+    exit();
+
+}
+else {
+    $userId = $_SESSION['user']['id'];
+}
 
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);

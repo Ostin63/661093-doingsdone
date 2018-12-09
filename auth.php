@@ -1,7 +1,6 @@
 <?php
 // подключаем файлы
 require_once('functions.php');
-session_start();
 // заголовок
 $page_name = 'Дела в поряке';
 
@@ -21,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (empty($errors)) {
         $res = userCheck($con, $form['email']);
-        if (!filter_var('email', FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
             $errors['email'] = 'Е-amil указан не верно';
         }
         if (mysqli_num_rows($res) > 0) {
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = addUser($con, $form['email'], $form['name'],  $form['password']);
         }
         if ($res && empty($errors)) {
-            header("Location: /index.php");
+            header("Location: /enter.php");
             exit();
         }
     }
@@ -40,9 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // подключаем контент
-//$content = include_template('auth.php', $tpl_data);
-//$content_task = include_template('content-info.php');
-//$content_user = include_template('header-button-reg.php');
 $button_footer = null;
 $sidebar = include_template('sidebar.php', [
     'content' => include_template('auth.php', $tpl_data),

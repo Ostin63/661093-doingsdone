@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = 'Это поле обязательно';
         }
     }
-    $res = mailCheck($con, $form['email']);
+    $res = userCheck($con, $form['email']);
 
     $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
 
@@ -48,8 +48,6 @@ else {
     }
 }
 // подключаем контент
-//$content_task = include_template('content-info.php');
-//$content_user = include_template('header-button-reg.php');
 $button_footer = null;
 $sidebar = include_template('sidebar.php', [
     'content' => $content,

@@ -1,10 +1,20 @@
 <?php
-$userId = 1;
 // подключаем файлы
 require_once('functions.php');
 session_start();
+
+if (!isset($_SESSION['user']['id'])) {
+    header("Location: /guest.php");
+    exit();
+
+}
+else {
+    $userId = $_SESSION['user']['id'];
+}
+
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
+
 
 // подключаем контент
 $projects = getProjects($con, $userId);
