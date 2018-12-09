@@ -2,7 +2,7 @@
 $userId = 1;
 // подключаем файлы
 require_once('functions.php');
-
+session_start();
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
@@ -76,10 +76,13 @@ $page_name = 'Дела в поряке';
 // формируем главную страницу
 
 $content_user = include_template('user.php');
-$layout_content = include_template('layout.php', [
-    'content_user' => $content_user,
-    'content_task' => $content_task,
+$sidebar = include_template('sidebar.php', [
     'content' => $content,
+    'content_user' => $content_user,
+    'content_task' => $content_task
+]);
+$layout_content = include_template('layout.php', [
+    'sidebar' => $sidebar,
     'page_name' => $page_name,
     'button_footer'=> $button_footer
 ]);

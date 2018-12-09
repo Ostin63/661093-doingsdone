@@ -1,7 +1,7 @@
 <?php
 // подключаем файлы
 require_once('functions.php');
-
+session_start();
 // заголовок
 $page_name = 'Дела в поряке';
 
@@ -43,13 +43,15 @@ $content = include_template('auth.php', $tpl_data);
 $content_task = include_template('content-info.php');
 $content_user = include_template('header-button-reg.php');
 $button_footer = null;
-
+$sidebar = include_template('sidebar.php', [
+    'content' => $content,
+    'content_user' => $content_user,
+    'content_task' => $content_task
+]);
 // формируем главную страницу
 $layout_content = include_template('layout.php', [
-    'content_user' => $content_user,
-    'content' => $content,
+    'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'content_task' => $content_task,
     'button_footer'=> $button_footer
 ]);
 print($layout_content);

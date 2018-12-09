@@ -10,29 +10,11 @@
     <link rel="stylesheet" href="css/flatpickr.min.css">
 </head>
 
-<body>
+<body class="body-background">
 <h1 class="visually-hidden">Дела в порядке</h1>
 
 <div class="page-wrapper">
-    <div class="container container--with-sidebar">
-        <header class="main-header">
-            <a href="/">
-                <img src="img/logo.png" width="153" height="42" alt="Логотип Дела в порядке">
-            </a>
-
-            <?=$content_user;?>
-        </header>
-
-        <div class="content">
-            <section class="content__side">
-                <?=$content_task;?>
-            </section>
-
-            <main class="content__main">
-                <?=$content;?>
-            </main>
-        </div>
-    </div>
+    <?=$sidebar?>
 </div>
 
 <footer class="main-footer">
