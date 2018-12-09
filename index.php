@@ -37,7 +37,7 @@ $content = include_template('index.php', [
     'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId),
     'show_complete_tasks' => $show_complete_tasks
 ]);
-$content_user = include_template('user.php');
+//$content_user = include_template('user.php');
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
@@ -45,7 +45,7 @@ $content_task = include_template('content-task.php', [
 ]);
 $sidebar = include_template('sidebar.php', [
     'content' => $content,
-    'content_user' => $content_user,
+    'content_user' => include_template('user.php'),
     'content_task' => $content_task
 ]);
 // формируем главную страницу

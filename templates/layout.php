@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/flatpickr.min.css">
 </head>
 
-<body class="body-background">
+<body class="/*body-background*/">
 <h1 class="visually-hidden">Дела в порядке</h1>
 
 <div class="page-wrapper">

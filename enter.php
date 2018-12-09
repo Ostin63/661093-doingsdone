@@ -48,13 +48,13 @@ else {
     }
 }
 // подключаем контент
-$content_task = include_template('content-info.php');
-$content_user = include_template('header-button-reg.php');
+//$content_task = include_template('content-info.php');
+//$content_user = include_template('header-button-reg.php');
 $button_footer = null;
 $sidebar = include_template('sidebar.php', [
     'content' => $content,
-    'content_user' => $content_user,
-    'content_task' => $content_task
+    'content_user' => include_template('header-button-reg.php'),
+    'content_task' => include_template('content-info.php')
 ]);
 // формируем главную страницу
 $layout_content = include_template('layout.php', [

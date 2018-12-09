@@ -111,7 +111,7 @@ function userCheck($con, $email) {
     return mysqli_query($con, $sql);
 }
 
-//проверка почты пользователя
+//проверка пользователя
 function mailCheck($con, $email) {
     $email = mysqli_real_escape_string($con, $email);
     $sql = "SELECT * FROM users WHERE email = '$email'";

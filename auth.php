@@ -19,8 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = "Это поле обязательно";
         }
     }
-
-    if (empty($errors)) {
+    if (!filter_var('email', FILTER_VALIDATE_EMAIL)){
+        $errors['email'] = 'Е-amil указан не верно';
+    }
+        if (empty($errors)) {
         $res = userCheck($con, $form['email']);
 
         if (mysqli_num_rows($res) > 0) {
@@ -39,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // подключаем контент
-$content = include_template('auth.php', $tpl_data);
-$content_task = include_template('content-info.php');
-$content_user = include_template('header-button-reg.php');
+//$content = include_template('auth.php', $tpl_data);
+//$content_task = include_template('content-info.php');
+//$content_user = include_template('header-button-reg.php');
 $button_footer = null;
 $sidebar = include_template('sidebar.php', [
-    'content' => $content,
-    'content_user' => $content_user,
-    'content_task' => $content_task
+    'content' => include_template('auth.php', $tpl_data),
+    'content_user' => include_template('header-button-reg.php'),
+    'content_task' => include_template('content-info.php')
 ]);
 // формируем главную страницу
 $layout_content = include_template('layout.php', [

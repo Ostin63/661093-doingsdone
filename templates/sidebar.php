@@ -13,7 +13,9 @@
         <?=$content_task;?>
 
         <main class="content__main">
+
             <?=$content;?>
+
         </main>
     </div>
 </div>
