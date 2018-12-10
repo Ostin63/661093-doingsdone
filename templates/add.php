@@ -3,7 +3,7 @@
 <form class="form"  action="" method="post" enctype="multipart/form-data">
     <div class="form__row">
         <label class="form__label" for="name">Название <sup>*</sup></label>
-        <?php $classname = isset($errors['name']) ? "form__input--error" : ""; $value = isset($task['name']) ? $task['name'] : ""?>
+        <?php $classname = isset($errors['name']) ? "form__input--error" : ""; $value = isset($task['name']) ? htmlspecialchars($task['name']) : ""?>
         <input class="form__input <?=$classname?>" type="text" name="task[name]" id="name" value="<?=$value?>" placeholder="Введите название">
         <?php if (isset($errors['name'])): ?>
             <p class="form__message"><?=$errors['name']?></p>
@@ -11,7 +11,7 @@
     </div>
     <div class="form__row">
         <label class="form__label" for="project">Проект <sup>*</sup></label>
-        <?php $classname = isset($errors['project']) ? "form__input--error" : ""; $value = isset($task['project']) ? $task['project'] : ""?>
+        <?php $classname = isset($errors['project']) ? "form__input--error" : ""; $value = isset($task['project']) ? htmlspecialchars($task['project']) : ""?>
         <select class="form__input form__input--select" name="task[project]" id="project">
             <?php foreach ($projects as $project): ?>
                 <option <?= $project['id'] == $value ? 'selected' : '' ?> value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
@@ -24,7 +24,7 @@
 
     <div class="form__row">
         <label class="form__label" for="date">Дата выполнения</label>
-        <?php $classname = isset($errors['date']) ? "form__input--error" : ""; $value = isset($task['date']) ? $task['date'] : ""?>
+        <?php $classname = isset($errors['date']) ? "form__input--error" : ""; $value = isset($task['date']) ? htmlspecialchars($task['date']) : ""?>
         <input class="form__input form__input--date <?=$classname?>" type="date" name="task[date]" id="date" value="<?=$value?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
         <?php if (isset($errors['date'])): ?>
             <p class="form__message"><?=$errors['date']?></p>
