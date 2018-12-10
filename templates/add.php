@@ -36,7 +36,7 @@
 
         <div class="form__input-file">
             <?php $classname = isset($errors['file']) ? "form__input--error" : "" ;?>
-            <input class="visually-hidden" type="file" name="task[file]" id="file" value="">
+            <input class="visually-hidden" type="file" name="task['file']" id="file" value="">
             <?php if (isset($errors['file'])): ?>
                 <p class="form__message"><?=$errors['file']?></p>
             <?php endif; ?>
@@ -48,6 +48,9 @@
 
 
     <div class="form__row form__row--controls">
+        <?php if (isset($errors)): ?>
+            <p class="error-message">Пожалуйста, исправьте ошибки в форме</p>
+        <?php endif; ?>
         <input class="button" type="submit" name="" value="Добавить">
     </div>
 </form>
