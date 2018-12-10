@@ -89,8 +89,7 @@ function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
 }
 
 //проверки формата даты
-function validateDate($date, $format = 'Y-m-d')
-{
+function validateDate($date, $format = 'Y-m-d') {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
 }
@@ -98,7 +97,6 @@ function validateDate($date, $format = 'Y-m-d')
 //добавление пользователя
 function addUser($con, $email, $name,  $password) {
     $password = password_hash($password, PASSWORD_DEFAULT);
-
     $sql = 'INSERT INTO users (date_creation, email, name, password, token) VALUES (NOW(), ?, ?, ?, "")';
     $stmt = db_get_prepare_stmt($con, $sql, [$email, $name, $password]);
     return mysqli_stmt_execute($stmt);
