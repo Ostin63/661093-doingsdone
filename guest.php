@@ -1,7 +1,6 @@
 <?php
 // подключаем файлы
 require_once('functions.php');
-session_start();
 
 // заголовок
 $page_name = 'Дела в поряке';

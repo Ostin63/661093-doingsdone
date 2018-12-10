@@ -4,7 +4,7 @@
     <div class="form__row">
         <label class="form__label" for="name">Название <sup>*</sup></label>
         <?php $classname = isset($errors['name']) ? "form__input--error" : ""; $value = isset($task['name']) ? $task['name'] : ""?>
-        <input class="form__input <?=$classname;?>" type="text" name="task[name]" id="name" value="<?=$value;?>" placeholder="Введите название">
+        <input class="form__input <?=$classname?>" type="text" name="task[name]" id="name" value="<?=$value?>" placeholder="Введите название">
         <?php if (isset($errors['name'])): ?>
             <p class="form__message"><?=$errors['name']?></p>
         <?php endif; ?>
@@ -35,7 +35,7 @@
         <label class="form__label" for="file">Файл</label>
 
         <div class="form__input-file">
-            <?php $classname = isset($errors['file']) ? "form__input--error" : "" ;?>
+            <?php $classname = isset($errors['file']) ? "form__input--error" : "" ?>
             <input class="visually-hidden" type="file" name="task['file']" id="file" value="">
             <?php if (isset($errors['file'])): ?>
                 <p class="form__message"><?=$errors['file']?></p>

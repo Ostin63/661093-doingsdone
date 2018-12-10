@@ -53,6 +53,7 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer
+    'button_footer'=> $button_footer,
+
 ]);
 print($layout_content);
