@@ -105,14 +105,7 @@ function addUser($con, $email, $name,  $password) {
 }
 
 //проверка пользователя
-/*function userCheck($con, $email) {
-    $email = mysqli_real_escape_string($con, $email);
-    $sql = "SELECT id FROM users WHERE email = '$email'";
-    return mysqli_query($con, $sql);
-}*/
-
-//проверка пользователя
-function userCheck($con, $email) {
+function getUserDataByEmail($con, $email) {
     $email = mysqli_real_escape_string($con, $email);
     $sql = "SELECT * FROM users WHERE email = '$email'";
     return mysqli_query($con, $sql);

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     if (empty($errors)) {
-        $res = userCheck($con, $form['email']);
+        $res = getUserDataByEmail($con, $form['email']);
         if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
             $errors['email'] = 'Е-amil указан не верно';
         }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // подключаем контент
 $button_footer = null;
 $sidebar = include_template('sidebar.php', [
-    'content' => include_template('auth.php', $tpl_data),
+    'content' => include_template('reg.php', $tpl_data),
     'content_user' => include_template('header-button-reg.php'),
     'content_task' => include_template('content-info.php')
 ]);

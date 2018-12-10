@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = 'Это поле обязательно';
         }
     }
-    $res = userCheck($con, $form['email']);
+    $res = getUserDataByEmail($con, $form['email']);
 
     $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
 

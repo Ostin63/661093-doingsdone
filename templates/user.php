@@ -10,7 +10,7 @@
         <div class="user-menu__data">
             <p>Константин</p>
 
-            <a href="/auth.php">Выйти</a>
+            <a href="/reg.php">Выйти</a>
         </div>
     </div>
 </div>
