@@ -22,7 +22,7 @@ $projects = getProjects($con, $userId);
 
 $projectId = null;
 
-//проверка типа переменной
+//проверка типа переменной для проектов
 if (isset($_GET['project_id'])) {
     $projectId = (int) $_GET['project_id'];
     if (!idExists($projectId, $projects)) {
@@ -32,12 +32,11 @@ if (isset($_GET['project_id'])) {
 }
 
 // подключаем контент
-
 $content = include_template('index.php', [
     'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId),
     'show_complete_tasks' => $show_complete_tasks
 ]);
-//$content_user = include_template('user.php');
+
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
@@ -53,6 +52,7 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer
+    'button_footer'=> $button_footer,
+
 ]);
 print($layout_content);

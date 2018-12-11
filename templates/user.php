@@ -8,9 +8,9 @@
         </div>
 
         <div class="user-menu__data">
-            <p>Константин</p>
+            <p><?=isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></p>
 
-            <a href="/reg.php">Выйти</a>
+            <a href="/logout.php">Выйти</a>
         </div>
     </div>
 </div>

@@ -12,9 +12,11 @@ else {
     $userId = $_SESSION['user']['id'];
 }
 
+// заголовок
+$page_name = 'Дела в поряке';
+
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
-
 
 // подключаем контент
 $projects = getProjects($con, $userId);
@@ -80,11 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ]);
 }
 
-// заголовок
-$page_name = 'Дела в поряке';
-
 // формируем главную страницу
-
 $content_user = include_template('user.php');
 $sidebar = include_template('sidebar.php', [
     'content' => $content,

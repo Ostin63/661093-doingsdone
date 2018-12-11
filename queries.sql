@@ -44,5 +44,3 @@ SELECT *  FROM tasks WHERE date_completion BETWEEN '2018-11-28' AND '2018-11-29'
 
 //обновить название задачи по её идентификатору
 UPDATE tasks SET name = 'Купить кота' WHERE id = 4
-
-SELECT id FROM users WHERE  email = costya@mail.ru

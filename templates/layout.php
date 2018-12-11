@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?=$page_name;?></title>
+    <title><?=$page_name?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
@@ -25,7 +25,7 @@
             <p>Веб-приложение для удобного ведения списка дел.</p>
         </div>
 
-        <?=$button_footer;?>
+        <?=$button_footer?>
 
         <div class="main-footer__social social">
             <span class="visually-hidden">Мы в соцсетях:</span>
