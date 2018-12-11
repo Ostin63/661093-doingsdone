@@ -35,20 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     if (count($errors) > 0) {
-        $content = include_template('project.php', ['project' => $projects, 'errors' => $errors]);
+        $content = include_template('project.php', ['projects' => $projects, 'errors' => $errors]);
     }
     else {
         addProjectForm($con, $projects['name'], $_SESSION['user']['id']);
         header("Location: /index.php");
         exit();
     }
-} else {
-    // подключаем контент
-    $content = include_template('project.php', [
-        'projects' => $projects
-    ]);
 }
-
+// подключаем контент
+$content = include_template('/project.php', [
+    'projects' => $projects
+]);
 // формируем главную страницу
 $content_user = include_template('user.php');
 $sidebar = include_template('sidebar.php', [
