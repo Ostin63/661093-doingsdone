@@ -88,6 +88,14 @@ function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
     return mysqli_stmt_execute($stmt);
 }
 
+//добавление проектов в БД
+function addProjectForm($con, $name, int $authorId) {
+    $sql = "
+    INSERT INTO projects ( name, author_id) VALUES (?, ?)";
+    $stmt = db_get_prepare_stmt($con, $sql,  [$name, $authorId]);
+    return mysqli_stmt_execute($stmt);
+}
+
 //проверки формата даты
 function validateDate($date, $format = 'Y-m-d') {
     $d = DateTime::createFromFormat($format, $date);

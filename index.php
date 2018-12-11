@@ -32,7 +32,6 @@ if (isset($_GET['project_id'])) {
 }
 
 // подключаем контент
-
 $content = include_template('index.php', [
     'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId),
     'show_complete_tasks' => $show_complete_tasks

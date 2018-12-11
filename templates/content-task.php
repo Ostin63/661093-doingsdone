@@ -14,6 +14,6 @@
     </nav>
 
     <a class="button button--transparent button--plus content__side-button"
-       href="pages/form-project.html" target="project_add">Добавить проект</a>
+       href="/project.php" target="project_add">Добавить проект</a>
 </section>
 
