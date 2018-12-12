@@ -8,10 +8,10 @@
 
 <div class="tasks-controls">
     <nav class="tasks-switch">
-        <a href="/" class="tasks-switch__item tasks-switch__item--active">Все задачи</a>
-        <a href="/" class="tasks-switch__item">Повестка дня</a>
-        <a href="/" class="tasks-switch__item">Завтра</a>
-        <a href="/" class="tasks-switch__item">Просроченные</a>
+        <a href="/index.php?filter=all" class="tasks-switch__item <?=!isset($_GET['filter']) || $_GET['filter'] == "all" ? "tasks-switch__item--active" : ""  ?>">Все задачи</a>
+        <a href="/index.php?filter=agenda" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "agenda"  ? "tasks-switch__item--active" : ""  ?>">Повестка дня</a>
+        <a href="/index.php?filter=tomorrow" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "tomorrow"  ? "tasks-switch__item--active" : ""  ?>">Завтра</a>
+        <a href="/index.php?filter=expired" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "expired"  ? "tasks-switch__item--active" : ""  ?>">Просроченные</a>
     </nav>
 
     <label class="checkbox">

@@ -30,10 +30,10 @@ if (isset($_GET['project_id'])) {
         exit();
     }
 }
-
+$filter = $_GET['filter'];
 // подключаем контент
 $content = include_template('index.php', [
-    'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId),
+    'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId, $filter),
     'show_complete_tasks' => $show_complete_tasks
 ]);
 

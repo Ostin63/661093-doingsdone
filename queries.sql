@@ -44,3 +44,8 @@ SELECT *  FROM tasks WHERE date_completion BETWEEN '2018-11-28' AND '2018-11-29'
 
 //обновить название задачи по её идентификатору
 UPDATE tasks SET name = 'Купить кота' WHERE id = 4
+
+SELECT DISTINCT tasks.*, projects.name AS project_name
+            FROM tasks
+            INNER JOIN projects ON tasks.project_id = projects.id
+            WHERE projects.author_id = 1 AND tasks.project_id = ?

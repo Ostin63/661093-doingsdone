@@ -27,21 +27,32 @@ function getTasksForAuthorId($con, $userId) {
     return $tasksList;
 }
 //Функция вызова задач для одного проекта
-function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId=null) {
-    if(!empty($projectId)) {
+function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId=null, $filter) {
+    if(empty($projectId)) {
+        if((empty($filter) || $filter=='all')) {
+            $sql = "
+            SELECT DISTINCT tasks.*, projects.name AS project_name
+            FROM tasks
+            INNER JOIN projects ON tasks.project_id = projects.id
+            WHERE projects.author_id = ?";
+            $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
+        }
+        else if ($filter=='agenda') {
+
+        }
+        else if ($filter=='tomorrow') {
+
+        }
+        else if ($filter=='expired') {
+
+        }
+    } else {
         $sql = "
         SELECT DISTINCT tasks.*, projects.name AS project_name
         FROM tasks
         INNER JOIN projects ON tasks.project_id = projects.id
         WHERE projects.author_id = ? AND tasks.project_id = ?";
         $stmt = db_get_prepare_stmt($con, $sql, [$userId, $projectId]);
-    } else {
-        $sql = "
-        SELECT DISTINCT tasks.*, projects.name AS project_name
-        FROM tasks
-        INNER JOIN projects ON tasks.project_id = projects.id
-        WHERE projects.author_id = ?";
-        $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
     }
 
     mysqli_stmt_execute($stmt);
