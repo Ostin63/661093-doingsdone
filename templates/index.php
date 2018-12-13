@@ -13,12 +13,12 @@
         <a href="/index.php?filter=tomorrow" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "tomorrow"  ? "tasks-switch__item--active" : ""  ?>">Завтра</a>
         <a href="/index.php?filter=expired" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "expired"  ? "tasks-switch__item--active" : ""  ?>">Просроченные</a>
     </nav>
-
     <label class="checkbox">
         <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
         <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?= ($show_complete_tasks == 1) ? "checked" : "" ?>>
         <span class="checkbox__text">Показывать выполненные</span>
     </label>
+
 </div>
 <table class="tasks">
     <?php foreach ($tasksList as $taskInfo): ?>
@@ -26,9 +26,10 @@
             <tr class="tasks__item task <?=$taskInfo['done'] ? "task--completed" : "" ?> <?=isTaskImportant($taskInfo['date_completion'], 24) ? "task--important" : "" ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
-                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?= $taskInfo['done'] ? "checked" : "" ?>>
+                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox"  value="<?=$taskInfo['id']?>"<?= ($taskInfo['done']) ? "checked" : "" ?>>
                         <span class="checkbox__text"><?=htmlspecialchars($taskInfo['name']) ?></span>
                     </label>
+
                 </td>
 
                 <td class="task__file">
