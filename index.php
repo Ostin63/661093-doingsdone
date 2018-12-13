@@ -16,7 +16,7 @@ else {
 }
 
 if (isset($_GET['task_id']) && isset($_GET['check'])) {
-    changeTaskCompletion($con, $_GET['task_id'], $_GET['check']);
+    changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $_SESSION['user']['id']);
 }
 
 // показывать или нет выполненные задачи
@@ -37,17 +37,20 @@ if (isset($_GET['project_id'])) {
 }
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+$currentProjectId = isset($_GET['project_id']) ? $_GET['project_id'] : null;
 
 // подключаем контент
 $content = include_template('index.php', [
     'tasksList' =>  getTasksForAuthorIdAndProjectedFilter($con, $userId, $projectId, $filter),
-    'show_complete_tasks' => $show_complete_tasks
+    'show_complete_tasks' => $show_complete_tasks,
+    'filter' => $filter
 ]);
 
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
-    'tasksList' => getTasksForAuthorId($con, $userId)
+    'tasksList' => getTasksForAuthorId($con, $userId),
+    'currentProjectId' => $currentProjectId
 ]);
 $sidebar = include_template('sidebar.php', [
     'content' => $content,

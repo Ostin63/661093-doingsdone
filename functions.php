@@ -102,24 +102,22 @@ function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId) {
 //Функция вызова задач по фильтрации
 function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId=null, $filter) {
     if(empty($projectId)) {
-        if ($filter ==='agenda') {
-            $tasksList = getTasksForAuthorIdAndProjectedAgenda($con, (int) $userId);
-        }
-        else if ($filter ==='tomorrow') {
-            $tasksList = getTasksForAuthorIdAndProjectedTomorrow ($con, (int) $userId);
-        }
-        else if ($filter ==='expired') {
-            $tasksList = getTasksForAuthorIdAndProjectedExpired($con, (int) $userId);
-        }
-        else {
-            $tasksList = getTasksForAuthorIdAllProjected($con, (int) $userId);
+        switch($filter) {
+            case 'agenda' :
+                return getTasksForAuthorIdAndProjectedAgenda($con, (int) $userId);
+            case 'tomorrow' :
+                return getTasksForAuthorIdAndProjectedTomorrow ($con, (int) $userId);
+            case 'expired' :
+                return getTasksForAuthorIdAndProjectedExpired($con, (int) $userId);
+            default :
+                return getTasksForAuthorIdAllProjected($con, (int) $userId);
         }
     }
     else {
-        $tasksList = getTasksForAuthorIdAndProjected($con, (int) $userId, (int) $projectId);
+        return getTasksForAuthorIdAndProjected($con, (int) $userId, (int) $projectId);
     }
-    return $tasksList;
 }
+
 //Функция подсчета задач по категориям
 function countTasks($tasksList, $projectId) {
     $tasksAmount = 0;
@@ -186,8 +184,9 @@ function getUserDataByEmail($con, $email) {
     return mysqli_query($con, $sql);
 }
 //изменение статуса задачи
-function changeTaskCompletion($con, int $taskId, int $check) {
-    $sql = "UPDATE tasks SET done = ? WHERE id = ?";
-    $stmt = db_get_prepare_stmt($con, $sql, [$check, $taskId]);
+function changeTaskCompletion($con, int $taskId, int $check, int $authorId) {
+    $sql = "UPDATE tasks INNER JOIN projects ON projects.id = tasks.project_id
+            SET tasks.done = ? WHERE tasks.id = ? AND projects.author_id = ?";
+    $stmt = db_get_prepare_stmt($con, $sql, [$check, $taskId, $authorId]);
     return mysqli_stmt_execute($stmt);
 }

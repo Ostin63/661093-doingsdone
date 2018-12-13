@@ -8,10 +8,10 @@
 
 <div class="tasks-controls">
     <nav class="tasks-switch">
-        <a href="/index.php?filter=all" class="tasks-switch__item <?=!isset($_GET['filter']) || $_GET['filter'] == "all" ? "tasks-switch__item--active" : ""  ?>">Все задачи</a>
-        <a href="/index.php?filter=agenda" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "agenda"  ? "tasks-switch__item--active" : ""  ?>">Повестка дня</a>
-        <a href="/index.php?filter=tomorrow" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "tomorrow"  ? "tasks-switch__item--active" : ""  ?>">Завтра</a>
-        <a href="/index.php?filter=expired" class="tasks-switch__item <?=isset($_GET['filter']) && $_GET['filter'] == "expired"  ? "tasks-switch__item--active" : ""  ?>">Просроченные</a>
+        <a href="/index.php?filter=all" class="tasks-switch__item <?=!isset($filter) || $filter == "all" ? "tasks-switch__item--active" : ""  ?>">Все задачи</a>
+        <a href="/index.php?filter=agenda" class="tasks-switch__item <?=$filter == "agenda"  ? "tasks-switch__item--active" : ""  ?>">Повестка дня</a>
+        <a href="/index.php?filter=tomorrow" class="tasks-switch__item <?=$filter == "tomorrow"  ? "tasks-switch__item--active" : ""  ?>">Завтра</a>
+        <a href="/index.php?filter=expired" class="tasks-switch__item <?=$filter == "expired"  ? "tasks-switch__item--active" : ""  ?>">Просроченные</a>
     </nav>
     <label class="checkbox">
         <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
