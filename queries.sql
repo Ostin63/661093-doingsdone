@@ -1,6 +1,6 @@
 INSERT INTO users (email, name, password, token) VALUES ('costya@mail.ru', 'Константин', 'secret', "");
 INSERT INTO users (email, name, password, token) VALUES ('petya@mail.ru', 'Петя', 'figa', "");
-INSERT INTO users (email, name, password, token) VALUES ('sonya@mail.ru', 'Соня', 'Соня', "");
+INSERT INTO users (email, name, password, token) VALUES ('sonya@mail.ru', 'Соня', 'dulya', "");
 
 INSERT INTO projects ( name, author_id) VALUES ('Входящие', 1), ('Учеба', 1), ('Работа', 1), ('Домашние', 1), ('Авто', 1);
 INSERT INTO projects ( name, author_id) VALUES ('Входящие', 2), ('Учеба', 2), ('Работа', 2), ('Домашние', 2), ('Авто', 2);

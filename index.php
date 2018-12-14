@@ -15,13 +15,19 @@ else {
     $userId = $_SESSION['user']['id'];
 }
 
-// показывать или нет выполненные задачи
-$show_complete_tasks = rand(0, 1);
+if (isset($_GET['task_id']) && isset($_GET['check'])) {
+    changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId);
+    if (!changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId)) {
+        header("HTTP/1.0 404 Not Found");
+        exit();
+    }
+}
+
+$show_complete_tasks = isset($_GET['show_completed']) ? $_GET['show_completed'] : true;
 
 $projects = getProjects($con, $userId);
 
 $projectId = null;
-
 //проверка типа переменной для проектов
 if (isset($_GET['project_id'])) {
     $projectId = (int) $_GET['project_id'];
@@ -31,24 +37,29 @@ if (isset($_GET['project_id'])) {
     }
 }
 
+$filter = isset($_GET['filter']) ? $_GET['filter'] : null;
+$currentProjectId = isset($_GET['project_id']) ? $_GET['project_id'] : null;
+
 // подключаем контент
 $content = include_template('index.php', [
-    'tasksList' =>  getTasksForAuthorIdAndProjected($con, $userId, $projectId),
-    'show_complete_tasks' => $show_complete_tasks
+    'tasksList' =>  getTasksForAuthorIdAndProjectedFilter($con, $userId, $projectId, $filter),
+    'show_complete_tasks' => $show_complete_tasks,
+    'filter' => $filter
 ]);
 
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
-    'tasksList' => getTasksForAuthorId($con, $userId)
+    'tasksList' => getTasksForAuthorId($con, $userId),
+    'currentProjectId' => $currentProjectId
 ]);
 $sidebar = include_template('sidebar.php', [
     'content' => $content,
     'content_user' => include_template('user.php'),
     'content_task' => $content_task
 ]);
-// формируем главную страницу
 
+// формируем главную страницу
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
