@@ -16,13 +16,14 @@ else {
 }
 
 if (isset($_GET['task_id']) && isset($_GET['check'])) {
-    changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $_SESSION['user']['id']);
+    changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId);
+    if (!changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId)) {
+        header("HTTP/1.0 404 Not Found");
+        exit();
+    }
 }
 
-// показывать или нет выполненные задачи
-
 $show_complete_tasks = isset($_GET['show_completed']) ? $_GET['show_completed'] : true;
-//$show_complete_tasks = rand(0, 1);
 
 $projects = getProjects($con, $userId);
 

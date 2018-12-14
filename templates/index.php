@@ -23,7 +23,7 @@
 <table class="tasks">
     <?php foreach ($tasksList as $taskInfo): ?>
         <?php if (!$taskInfo['done'] || $show_complete_tasks == 1): ?>
-            <tr class="tasks__item task <?=$taskInfo['done'] ? "task--completed" : "" ?> <?=isTaskImportant($taskInfo['date_completion'], 24) ? "task--important" : "" ?>">
+            <tr class="tasks__item task <?=$taskInfo['done'] ? "task--completed" : "" ?> <?=isTaskImportant($taskInfo['date_completion'], 24) && !$taskInfo['done'] ? "task--important" : "" ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox"  value="<?=$taskInfo['id']?>"<?= ($taskInfo['done']) ? "checked" : "" ?>>
