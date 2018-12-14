@@ -98,10 +98,25 @@ function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId) {
         $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
         return $tasksList;
 }
-
+//поле поиска
+function searchTaskAuthor($con, $search, int $userId) {
+    $sql = "SELECT tasks.*, projects.name AS project_name FROM tasks
+            JOIN projects ON projects.id = tasks.project_id
+		    WHERE MATCH(tasks.name) AGAINST(?) AND projects.author_id = ?";
+    $stmt = db_get_prepare_stmt($con, $sql, [$search, $userId]);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 //Функция вызова задач по фильтрации
-function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId=null, $filter) {
-    if(empty($projectId)) {
+function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId=null, $filter=null, $search=null) {
+    if (!empty($projectId)) {
+        return getTasksForAuthorIdAndProjected($con, (int) $userId, (int) $projectId);
+    }
+    else if (!empty($search)) {
+        return searchTaskAuthor($con, $search, (int) $userId);
+    }
+    else {
         switch($filter) {
             case 'agenda' :
                 return getTasksForAuthorIdAndProjectedAgenda($con, (int) $userId);
@@ -112,9 +127,6 @@ function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId
             default :
                 return getTasksForAuthorIdAllProjected($con, (int) $userId);
         }
-    }
-    else {
-        return getTasksForAuthorIdAndProjected($con, (int) $userId, (int) $projectId);
     }
 }
 

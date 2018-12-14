@@ -35,3 +35,6 @@ CREATE TABLE tasks (
 PRIMARY KEY (`id`),
 UNIQUE KEY `project_name`(`project_id`, `name`)
 );
+
+//создание индекса для поля
+CREATE FULLTEXT INDEX task_search ON tasks(name)
