@@ -51,6 +51,12 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
 
     return $stmt;
 }
+/**
+ * Функция-шаблонизатор
+ * @param $name
+ * @param $data
+ * @return false|string
+ */
 function include_template($name, $data = []) {
     $name = 'templates/' . $name;
     $result = '';
