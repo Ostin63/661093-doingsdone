@@ -3,6 +3,12 @@ require_once('connect.php');
 require_once('mysql_helper.php');
 
 //Функция вызова проектов для одного автора
+/**
+ * Функция-шаблонизатор
+ * @param $name
+ * @param $data
+ * @return false|string
+ */
 function getProjects($con, $userId) {
     $sql = "SELECT * FROM projects WHERE author_id = ?";
     $stmt = db_get_prepare_stmt($con, $sql, [$userId]);
@@ -12,7 +18,13 @@ function getProjects($con, $userId) {
     return $projects;
 }
 
-//Функция вызова имен категорий для одного автора
+/**
+ * Функция вызова имен категорий для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorId($con, $userId) {
     $sql = "
       SELECT DISTINCT tasks.*,
@@ -27,7 +39,13 @@ function getTasksForAuthorId($con, $userId) {
     return $tasksList;
 }
 
-//функция вызова всех задач
+/**
+ * функция вызова всех задач для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAllProjected($con, int $userId) {
     $sql = "
             SELECT DISTINCT tasks.*, projects.name AS project_name
@@ -41,7 +59,14 @@ function getTasksForAuthorIdAllProjected($con, int $userId) {
     return $tasksList;
 }
 
-//функция вызова задач на сегодня
+/**
+ * функция вызова задач на сегодня для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param CURDATE() параметр даты
+ * @param $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAndProjectedAgenda($con, int $userId) {
     $sql = "
             SELECT DISTINCT tasks. * , projects.name AS project_name
@@ -56,7 +81,14 @@ function getTasksForAuthorIdAndProjectedAgenda($con, int $userId) {
     return $tasksList;
 }
 
-//функция вызова задач на завтра
+/**
+ * функция вызова задач на завтра для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param DATE_ADD(CURDATE(), INTERVAL 1 DAY) параметр даты
+ * @param $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAndProjectedTomorrow ($con, int $userId) {
     $sql = "
             SELECT DISTINCT tasks. * , projects.name AS project_name
@@ -71,7 +103,14 @@ function getTasksForAuthorIdAndProjectedTomorrow ($con, int $userId) {
     return $tasksList;
 }
 
-//функция вызова просроченных задач
+/**
+ * функция вызова просроченных задач для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param tasks.date_completion < NOW() параметр даты
+ * @param $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAndProjectedExpired($con, int $userId) {
     $sql = "
             SELECT DISTINCT tasks. * , projects.name AS project_name
@@ -85,7 +124,14 @@ function getTasksForAuthorIdAndProjectedExpired($con, int $userId) {
     $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
     return $tasksList;
 }
-//Функция вызова задач для одного проекта
+
+/**
+ * Функция вызова задач проекта для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param $userId, $projectId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId) {
     $sql = "
             SELECT DISTINCT tasks.*, projects.name AS project_name
@@ -98,7 +144,14 @@ function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId) {
         $tasksList = mysqli_fetch_all($res, MYSQLI_ASSOC);
         return $tasksList;
 }
-//поле поиска
+
+/**
+ * Функция поле поиска для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param $search, $userId Данные для вставки на место плейсхолдеров
+ * @return $tasksList
+ */
 function searchTaskAuthor($con, $search, int $userId) {
     $sql = "SELECT tasks.*, projects.name AS project_name FROM tasks
             JOIN projects ON projects.id = tasks.project_id
@@ -108,7 +161,13 @@ function searchTaskAuthor($con, $search, int $userId) {
     $result = mysqli_stmt_get_result($stmt);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
-//Функция вызова задач по фильтрации
+
+/**
+ * Функция вызова задач по фильтрации для одного автора
+ * @param $con mysqli Ресурс соединения
+ * @param $projectId, $search, $filter обработка параметров
+ * @return $tasksList
+ */
 function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId=null, $filter=null, $search=null) {
     if (!empty($projectId)) {
         return getTasksForAuthorIdAndProjected($con, (int) $userId, (int) $projectId);
@@ -130,7 +189,12 @@ function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId
     }
 }
 
-//Функция подсчета задач по категориям
+/**
+ * Функция подсчета задач по категориям для одного автора
+ * @param $tasksList список задач
+ * @param $projectId список проуктов
+ * @return $tasksAmount
+ */
 function countTasks($tasksList, $projectId) {
     $tasksAmount = 0;
     foreach ($tasksList as $task) {
@@ -140,7 +204,13 @@ function countTasks($tasksList, $projectId) {
     }
     return $tasksAmount;
 }
-//функция проверки остатка времени до выполнения задачи
+
+/**
+ * функция проверки остатка времени до выполнения задачи
+ * @param $taskDate дата выполнения задачи
+ * @param $importantHours остаток времени
+ * @return $importantHours
+ */
 function isTaskImportant($taskDate, $importantHours) {
     if (empty($taskDate)) return  false;
     $seconds_in_hour = 3600;
@@ -150,6 +220,12 @@ function isTaskImportant($taskDate, $importantHours) {
     return floor($ts_diff / $seconds_in_hour) <= $importantHours;
 }
 
+/**
+ * проверка существования пользователя
+ * @param $id БД авторов
+ * @param $entityList введенние данные
+ * @return true|false
+ */
 function idExists($id, $entityList) {
     foreach($entityList as $entityInfo) {
         if ($id == $entityInfo['id']) {
@@ -159,7 +235,13 @@ function idExists($id, $entityList) {
     return false;
 }
 
-//добавление задач в БД
+/**
+ * добавление задач в БД
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param name, date_creation, date_completion, file, project_id Данные для вставки на место плейсхолдеров
+ * @return mysqli_stmt_execute($stmt)
+ */
 function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
     $sql = "
     INSERT INTO tasks (name, date_creation, date_completion, file, project_id) VALUES
@@ -168,20 +250,36 @@ function addTaskform($con, $name, $dateCompletion, $file, int $projectId) {
     return mysqli_stmt_execute($stmt);
 }
 
-//добавление проектов в БД
+/**
+ * добавление проектов в БД
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param name, author_id Данные для вставки на место плейсхолдеров
+ * @return mysqli_stmt_execute($stmt)
+ */
 function addProjectForm($con, $name, int $authorId) {
     $sql = "INSERT INTO projects ( name, author_id) VALUES (?, ?)";
     $stmt = db_get_prepare_stmt($con, $sql,  [$name, $authorId]);
     return mysqli_stmt_execute($stmt);
 }
 
-//проверки формата даты
+/** проверки формата даты
+ * @param $date $format
+ * @return format
+ */
 function validateDate($date, $format = 'Y-m-d') {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
 }
 
-//добавление пользователя
+/**
+ * добавление пользователя в БД
+ * @param $con mysqli Ресурс соединения
+ * @param password_hash хеш пароля
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param date_creation, email, name, password, token Данные для вставки на место плейсхолдеров
+ * @return mysqli_stmt_execute($stmt)
+ */
 function addUser($con, $email, $name,  $password) {
     $password = password_hash($password, PASSWORD_DEFAULT);
     $sql = 'INSERT INTO users (date_creation, email, name, password, token) VALUES (NOW(), ?, ?, ?, "")';
@@ -189,13 +287,26 @@ function addUser($con, $email, $name,  $password) {
     return mysqli_stmt_execute($stmt);
 }
 
-//проверка пользователя
+/**
+ * добавление пользователя в БД
+ * @param $con mysqli Ресурс соединения
+ * @param mysqli_real_escape_string Экранирует специальные символы в строке
+ * @param $sql запрос на добавление пользователя
+ * @return mysqli_query
+ */
 function getUserDataByEmail($con, $email) {
     $email = mysqli_real_escape_string($con, $email);
     $sql = "SELECT * FROM users WHERE email = '$email'";
     return mysqli_query($con, $sql);
 }
-//изменение статуса задачи
+
+/**
+ * изменение статуса задачи
+ * @param $con mysqli Ресурс соединения
+ * @param $sql запрос с плейсхолдерами вместо значений
+ * @param $check, $taskId, $authorId Данные для вставки на место плейсхолдеров
+ * @return mysqli_stmt_execute($stmt)
+ */
 function changeTaskCompletion($con, int $taskId, int $check, int $authorId) {
     $sql = "UPDATE tasks INNER JOIN projects ON projects.id = tasks.project_id
             SET tasks.done = ? WHERE tasks.id = ? AND projects.author_id = ?";
