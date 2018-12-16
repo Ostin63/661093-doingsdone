@@ -2,9 +2,9 @@
 require_once('mysql_helper.php');
 
 /**
- * Получение проектов для одного автора
+ * Получает проекты для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function getProjects($con, int $userId)
@@ -18,9 +18,9 @@ function getProjects($con, int $userId)
 }
 
 /**
- * Получение имен категорий для одного автора
+ * Получет имена категорий для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId id Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function getTasksForAuthorId($con, int $userId)
@@ -39,9 +39,9 @@ function getTasksForAuthorId($con, int $userId)
 }
 
 /**
- * Получение всех задач для одного автора
+ * Получает все  задачи для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function getTasksForAuthorIdAllProjected($con, int $userId)
@@ -59,9 +59,9 @@ function getTasksForAuthorIdAllProjected($con, int $userId)
 }
 
 /**
- * Получение задач на сегодня для одного автора
+ * Получает задачт на сегодня для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function getTasksForAuthorIdAndProjectedAgenda($con, int $userId)
@@ -82,7 +82,7 @@ function getTasksForAuthorIdAndProjectedAgenda($con, int $userId)
 /**
  * Получение задач на завтра для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function getTasksForAuthorIdAndProjectedTomorrow($con, int $userId)
@@ -101,7 +101,7 @@ function getTasksForAuthorIdAndProjectedTomorrow($con, int $userId)
 }
 
 /**
- * Получение просроченных задач для одного автора
+ * Получает просроченные задачи для одного автора
  * @param $con mysqli Ресурс соединения
  * @param $userId int Идентификатор автора
  * @return array
@@ -122,10 +122,10 @@ function getTasksForAuthorIdAndProjectedExpired($con, int $userId)
 }
 
 /**
- * Получение задач проекта для одного автора
+ * Получает задачт проекта для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int Данные для вставки на место плейсхолдеров
- * @param $projectId int Данные для вставки на место плейсхолдеров
+ * @param $userId int Идентификатор автора
+ * @param $projectId int Идентификатор проекта
  * @return array
  */
 function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId)
@@ -143,10 +143,10 @@ function getTasksForAuthorIdAndProjected($con, int $userId, int $projectId)
 }
 
 /**
- * "Поле поиска" задач для одного автора
+ * Проверяет наличие задач для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $search Данные для вставки на место плейсхолдеров
- * @param $userId int Данные для вставки на место плейсхолдеров
+ * @param $search string Вводимые данные в поле поиска
+ * @param $userId int Идентификатор автора
  * @return array
  */
 function searchTaskAuthor($con, $search, int $userId)
@@ -161,12 +161,12 @@ function searchTaskAuthor($con, $search, int $userId)
 }
 
 /**
- * Получение задач по фильтрации для одного автора
+ * Получает задачи по фильтрации для одного автора
  * @param $con mysqli Ресурс соединения
- * @param $userId int обработка параметров
- * @param $projectId int обработка параметров
- * @param $search обработка параметров
- * @param $filter обработка параметров
+ * @param $userId int Идентификатор автора
+ * @param $projectId int Идентификатор проекта
+ * @param $search string Вводимые данные в поле поиска
+ * @param $filter string Выбирает задачи: по параметрам даты
  * @return array
  */
 function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId = null, $filter = null, $search = null)
@@ -191,8 +191,8 @@ function getTasksForAuthorIdAndProjectedFilter($con, int $userId, int $projectId
 
 /**
  * Подсчитывает колличество задач по категориям для одного автора
- * @param $tasksList array список задач
- * @param $projectId int список проуктов
+ * @param $tasksList array список задач по категориям для одного автора
+ * @param $projectId int Идентификатор проекта
  * @return int
  */
 function countTasks(array $tasksList, int $projectId)
@@ -208,11 +208,11 @@ function countTasks(array $tasksList, int $projectId)
 
 /**
  * Подсчитывает остатк времени до выполнения задачи
- * @param $taskDate дата выполнения задачи
- * @param $importantHours остаток времени
+ * @param $taskDate string дата выполнения задачи
+ * @param $importantHours int остаток времени до дата выполнения задачи
  * @return int
  */
-function isTaskImportant($taskDate, $importantHours)
+function isTaskImportant($taskDate, int $importantHours)
 {
     if (empty($taskDate)) return false;
     $seconds_in_hour = 3600;
@@ -224,8 +224,8 @@ function isTaskImportant($taskDate, $importantHours)
 
 /**
  * Определяет существованЯ id пользователя
- * @param $id int БД авторов
- * @param $entityList введенние данные
+ * @param $id int Идентификатор пользователя
+ * @param $entityList array введенние данные
  * @return boolean
  */
 function idExists(int $id, array $entityList)
@@ -239,13 +239,13 @@ function idExists(int $id, array $entityList)
 }
 
 /**
- * Добавление задач в БД
+ * Добавляет задачи в БД
  * @param $con mysqli Ресурс соединения
- * @param $name Данные для вставки на место плейсхолдеров
- * @param $dateCompletion Данные для вставки на место плейсхолдеров
- * @param $file Данные для вставки на место плейсхолдеров
- * @param $projectId int Данные для вставки на место плейсхолдеров
- * @return array
+ * @param $name string название проекта
+ * @param $dateCompletion string Дата выполнения задачи
+ * @param $file string Файл добавляемый пользователем
+ * @param $projectId int Идентификатор проекта
+ * @return boolean
  */
 function addTaskform($con, $name, $dateCompletion, $file, int $projectId)
 {
@@ -257,10 +257,11 @@ function addTaskform($con, $name, $dateCompletion, $file, int $projectId)
 }
 
 /**
- * Добавление проектов в БД
+ * Добавляет проекты в БД
  * @param $con mysqli Ресурс соединения
- * @param $name Данные для вставки на место плейсхолдеров
- * @return array
+ * @param $name string название проекта
+ * @param $authorId int Идентификатор пользователя
+ * @return boolean
  */
 function addProjectForm($con, $name, int $authorId)
 {
@@ -270,9 +271,9 @@ function addProjectForm($con, $name, int $authorId)
 }
 
 /**
- * Проверка формата даты
- * @param $date исходное написпние
- * @param $format желаемый вид
+ * Проверяет формат даты
+ * @param $date string исходное написпние даты
+ * @param $format string желаемый вид даты
  * @return string
  */
 function validateDate($date, $format = 'Y-m-d')
@@ -282,12 +283,12 @@ function validateDate($date, $format = 'Y-m-d')
 }
 
 /**
- * Добавление пользователя в БД
+ * Добавляет пользователя в БД
  * @param $con mysqli Ресурс соединения
- * @param $password Данные для вставки на место плейсхолдеров
- * @param $email Данные для вставки на место плейсхолдеров
- * @param $name  Данные для вставки на место плейсхолдеров
- * @return array
+ * @param $password string Вводимый пороль пользователя
+ * @param $email string Вводимый адрес пользователя
+ * @param $name string  Имя пользователя
+ * @return boolean
  */
 function addUser($con, $email, $name, $password)
 {
@@ -298,10 +299,10 @@ function addUser($con, $email, $name, $password)
 }
 
 /**
- * Проверка email пользователя
+ * Проверяет email пользователя
  * @param $con mysqli Ресурс соединения
- * @param $email
- * @return array
+ * @param $email string Адрес пользователя
+ * @return boolean
  */
 function getUserDataByEmail($con, $email)
 {
@@ -311,12 +312,12 @@ function getUserDataByEmail($con, $email)
 }
 
 /**
- * Изменение статуса задачи
+ * Изменяет статус задачи
  * @param $con mysqli Ресурс соединения
- * @param $taskId int Данные для вставки на место плейсхолдеров
- * @param $check int Данные для вставки на место плейсхолдеров
- * @param $authorId int Данные для вставки на место плейсхолдеров
- * @return array
+ * @param $taskId int идентификатор задач
+ * @param $check int новый статус задачи
+ * @param $authorId int идентификатор пользователя
+ * @return boolean
  */
 function changeTaskCompletion($con, int $taskId, int $check, int $authorId)
 {
@@ -327,7 +328,7 @@ function changeTaskCompletion($con, int $taskId, int $check, int $authorId)
 }
 
 /**
- * Вызов задач на завтра + 1час для email автора
+ * Возвращает задачи которые длжны быть выполнены в ближайший час
  * @param $con mysqli Ресурс соединения
  * @return array
  */

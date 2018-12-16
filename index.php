@@ -16,7 +16,6 @@ if (!isset($_SESSION['user']['id'])) {
 }
 
 if (isset($_GET['task_id']) && isset($_GET['check'])) {
-    changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId);
     if (!changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId)) {
         header("HTTP/1.0 404 Not Found");
         exit();
