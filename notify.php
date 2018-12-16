@@ -19,12 +19,12 @@ foreach (getHotTasks($con) as $task) {
     $userName = $task['user_name'];
     $date = $task['date_completion'];
     $taskName = $task['name'];
-}
 
-$message = new Swift_Message();
-$message->setSubject('Уведомление от сервиса «Дела в порядке»');
-$message->setFrom(['keks@phpdemo.ru' => 'Дела в порядке']);
-$message->setBcc([$email => $userName]);
-$message->setBody("Уважаемый, $userName. У вас запланирована задача $taskName на $date");
-$message->setContentType('text/plain');
-$mailer->send($message);
+    $message = new Swift_Message();
+    $message->setSubject('Уведомление от сервиса «Дела в порядке»');
+    $message->setFrom(['keks@phpdemo.ru' => 'Дела в порядке']);
+    $message->setTo([$email => $userName]);
+    $message->setBody(htmlspecialchars("Уважаемый, $userName. У вас запланирована задача $taskName на $date"));
+    $message->setContentType('text/plain');
+    $mailer->send($message);
+}
