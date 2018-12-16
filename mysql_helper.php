@@ -9,7 +9,8 @@
  *
  * @return mysqli_stmt Подготовленное выражение
  */
-function db_get_prepare_stmt($con, $sql, $data = []) {
+function db_get_prepare_stmt($con, $sql, $data = [])
+{
     if ($data) {
         $types = '';
         $stmt_data = [];
@@ -19,7 +20,7 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
             if (($nPos = strpos($sql, '?', $nPos + 1)) === false) {
                 break;
             }
-            if(is_null($value)) {
+            if (is_null($value)) {
                 $sql = substr_replace($sql, 'NULL', $nPos, 1);
                 continue;
             }
@@ -28,11 +29,9 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
 
             if (is_int($value)) {
                 $type = 'i';
-            }
-            else if (is_string($value)) {
+            } else if (is_string($value)) {
                 $type = 's';
-            }
-            else if (is_double($value)) {
+            } else if (is_double($value)) {
                 $type = 'd';
             }
 
@@ -51,13 +50,15 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
 
     return $stmt;
 }
+
 /**
  * Функция-шаблонизатор
  * @param $name
  * @param $data
  * @return false|string
  */
-function include_template($name, $data = []) {
+function include_template($name, $data = [])
+{
     $name = 'templates/' . $name;
     $result = '';
 

@@ -19,17 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = "Это поле обязательно";
         }
     }
-    if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL)){
+    if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Е-amil указан не верно';
     }
     if (empty($errors)) {
         $res = getUserDataByEmail($con, $form['email']);
         if (mysqli_num_rows($res) > 0) {
             $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
-        }
-
-        else {
-            $res = addUser($con, $form['email'], $form['name'],  $form['password']);
+        } else {
+            $res = addUser($con, $form['email'], $form['name'], $form['password']);
         }
         if ($res && empty($errors)) {
             header("Location: /enter.php");
@@ -51,6 +49,6 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer
+    'button_footer' => $button_footer
 ]);
 print($layout_content);

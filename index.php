@@ -11,8 +11,7 @@ if (!isset($_SESSION['user']['id'])) {
     header("Location: /guest.php");
     exit();
 
-}
-else {
+} else {
     $userId = $_SESSION['user']['id'];
 }
 
@@ -31,20 +30,20 @@ $projects = getProjects($con, $userId);
 $projectId = null;
 //проверка типа переменной для проектов
 if (isset($_GET['project_id'])) {
-    $projectId = (int) $_GET['project_id'];
+    $projectId = (int)$_GET['project_id'];
     if (!idExists($projectId, $projects)) {
         header("HTTP/1.0 404 Not Found");
         exit();
     }
 }
-$search = $_GET['search'] ?? null;
+$search = trim($_GET['search'] ?? null);
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : null;
 $currentProjectId = isset($_GET['project_id']) ? $_GET['project_id'] : null;
 
 // подключаем контент
 $content = include_template('index.php', [
-    'tasksList' =>  getTasksForAuthorIdAndProjectedFilter($con, (int) $userId, (int) $projectId, $filter, $search),
+    'tasksList' => getTasksForAuthorIdAndProjectedFilter($con, (int)$userId, (int)$projectId, $filter, $search),
     'show_complete_tasks' => $show_complete_tasks,
     'filter' => $filter,
     'search' => $search
@@ -53,7 +52,7 @@ $content = include_template('index.php', [
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
-    'tasksList' => getTasksForAuthorId($con, (int) $userId),
+    'tasksList' => getTasksForAuthorId($con, (int)$userId),
     'currentProjectId' => $currentProjectId
 ]);
 $sidebar = include_template('sidebar.php', [
@@ -66,7 +65,7 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer,
+    'button_footer' => $button_footer,
 
 ]);
 print($layout_content);

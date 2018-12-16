@@ -25,26 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!count($errors) and $user) {
         if (password_verify($form['password'], $user['password'])) {
             $_SESSION['user'] = $user;
-        }
-        else {
+        } else {
             $errors['password'] = 'Неверный пароль';
         }
-    }
-    else {
+    } else {
         $errors['email'] = 'Такой пользователь не найден';
     }
 
     if (count($errors)) {
         $content = include_template('enter.php', ['form' => $form, 'errors' => $errors]);
-    }
-    else {
+    } else {
         header("Location: /index.php");
         exit();
     }
 
-}
-else {
-    if (isset($_SESSION['user']));{
+} else {
+    if (isset($_SESSION['user'])) ;
+    {
         $content = include_template('enter.php', []);
     }
 }
@@ -59,6 +56,6 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer
+    'button_footer' => $button_footer
 ]);
 print($layout_content);

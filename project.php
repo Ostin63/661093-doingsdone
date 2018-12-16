@@ -11,13 +11,12 @@ if (!isset($_SESSION['user']['id'])) {
     header("Location: /guest.php");
     exit();
 
-}
-else {
+} else {
     $userId = $_SESSION['user']['id'];
 }
 
 // подключаем контент
-$projects = getProjects($con, (int) $userId);
+$projects = getProjects($con, (int)$userId);
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
@@ -37,14 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (count($errors) > 0) {
         $content = include_template('project.php', ['projects' => $projects, 'errors' => $errors]);
-    }
-    else {
+    } else {
         addProjectForm($con, $projects['name'], $_SESSION['user']['id']);
         header("Location: /index.php");
         exit();
     }
-}
-else {
+} else {
     // подключаем контент
     $content = include_template('/project.php', [
         'projects' => $projects
@@ -61,6 +58,6 @@ $sidebar = include_template('sidebar.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer
+    'button_footer' => $button_footer
 ]);
 print($layout_content);

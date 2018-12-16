@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title><?=$page_name?></title>
+    <title><?= $page_name ?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
 </head>
 
-<body class="<?=isset($body_classname) ? $body_classname : "" ?>">
+<body class="<?= isset($body_classname) ? $body_classname : "" ?>">
 <h1 class="visually-hidden">Дела в порядке</h1>
 
 <div class="page-wrapper">
-    <?=$sidebar?>
+    <?= $sidebar ?>
 </div>
 
 <footer class="main-footer">
@@ -25,7 +24,7 @@
             <p>Веб-приложение для удобного ведения списка дел.</p>
         </div>
 
-        <?=$button_footer?>
+        <?= $button_footer ?>
 
         <div class="main-footer__social social">
             <span class="visually-hidden">Мы в соцсетях:</span>

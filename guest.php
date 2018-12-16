@@ -15,7 +15,7 @@ $sidebar = include_template('guest.php', [
 $layout_content = include_template('layout.php', [
     'sidebar' => $sidebar,
     'page_name' => $page_name,
-    'button_footer'=> $button_footer,
+    'button_footer' => $button_footer,
     'body_classname' => 'body-background'
 ]);
 print($layout_content);

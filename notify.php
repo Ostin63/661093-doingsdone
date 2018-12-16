@@ -14,12 +14,17 @@ $mailer = new Swift_Mailer($transport);
 $logger = new Swift_Plugins_Loggers_ArrayLogger();
 $mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
 
-
-
 foreach (getHotTasks($con) as $task) {
     $email = $task['user_email'];
     $userName = $task['user_name'];
     $date = $task['date_completion'];
     $taskName = $task['name'];
-    $message = "Уважаемый, $userName. У вас запланирована задача $taskName на $date";
 }
+
+$message = new Swift_Message();
+$message->setSubject('Уведомление от сервиса «Дела в порядке»');
+$message->setFrom(['keks@phpdemo.ru' => 'Дела в порядке']);
+$message->setBcc([$email => $userName]);
+$message->setBody("Уважаемый, $userName. У вас запланирована задача $taskName на $date");
+$message->setContentType('text/plain');
+$mailer->send($message);

@@ -4,17 +4,17 @@
             <img src="img/logo.png" width="153" height="42" alt="Логотип Дела в порядке">
         </a>
 
-        <?=$content_user?>
+        <?= $content_user ?>
 
     </header>
 
     <div class="content">
 
-        <?=$content_task?>
+        <?= $content_task ?>
 
         <main class="content__main">
 
-            <?=$content?>
+            <?= $content ?>
 
         </main>
     </div>

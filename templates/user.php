@@ -8,7 +8,7 @@
         </div>
 
         <div class="user-menu__data">
-            <p><?=isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></p>
+            <p><?= isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></p>
 
             <a href="/logout.php">Выйти</a>
         </div>
