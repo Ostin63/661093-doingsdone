@@ -1,5 +1,6 @@
 <?php
 // подключаем файлы
+require_once('connect.php');
 require_once('functions.php');
 session_start();
 
@@ -16,7 +17,7 @@ else {
 }
 
 // подключаем контент
-$projects = getProjects($con, $userId);
+$projects = getProjects($con, (int) $userId);
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
@@ -43,10 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 }
-// подключаем контент
-$content = include_template('/project.php', [
-    'projects' => $projects
-]);
+else {
+    // подключаем контент
+    $content = include_template('/project.php', [
+        'projects' => $projects
+    ]);
+}
+
 // формируем главную страницу
 $content_user = include_template('user.php');
 $sidebar = include_template('sidebar.php', [

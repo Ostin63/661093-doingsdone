@@ -1,5 +1,6 @@
 <?php
 // подключаем файлы
+require_once('connect.php');
 require_once('functions.php');
 session_start();
 
@@ -75,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: /index.php");
         exit();
     }
-} else {
+}
+else {
     // подключаем контент
     $content = include_template('add.php', [
         'projects' => $projects

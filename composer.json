@@ -1,0 +1,14 @@
+{
+    "name": "ostin/doingsdone",
+    "description": "Website for doings done",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ostin63",
+            "email": "Ostin@63users.noreply.githab.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.1"
+    }
+}

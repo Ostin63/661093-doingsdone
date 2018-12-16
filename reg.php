@@ -1,5 +1,6 @@
 <?php
 // подключаем файлы
+require_once('connect.php');
 require_once('functions.php');
 // заголовок
 $page_name = 'Дела в поряке';

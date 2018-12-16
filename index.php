@@ -1,5 +1,6 @@
 <?php
 // подключаем файлы
+require_once('connect.php');
 require_once('functions.php');
 session_start();
 
@@ -43,7 +44,7 @@ $currentProjectId = isset($_GET['project_id']) ? $_GET['project_id'] : null;
 
 // подключаем контент
 $content = include_template('index.php', [
-    'tasksList' =>  getTasksForAuthorIdAndProjectedFilter($con, $userId, $projectId, $filter, $search),
+    'tasksList' =>  getTasksForAuthorIdAndProjectedFilter($con, (int) $userId, (int) $projectId, $filter, $search),
     'show_complete_tasks' => $show_complete_tasks,
     'filter' => $filter,
     'search' => $search
@@ -52,7 +53,7 @@ $content = include_template('index.php', [
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
     'projects' => $projects,
-    'tasksList' => getTasksForAuthorId($con, $userId),
+    'tasksList' => getTasksForAuthorId($con, (int) $userId),
     'currentProjectId' => $currentProjectId
 ]);
 $sidebar = include_template('sidebar.php', [
