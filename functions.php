@@ -231,7 +231,7 @@ function isTaskImportant($taskDate, int $importantHours)
 function idExists(int $id, array $entityList)
 {
     foreach ($entityList as $entityInfo) {
-        if ($id == $entityInfo['id']) {
+        if ($id === $entityInfo['id']) {
             return true;
         }
     }
@@ -279,7 +279,7 @@ function addProjectForm($con, $name, int $authorId)
 function validateDate($date, $format = 'Y-m-d')
 {
     $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) == $date;
+    return $d && $d->format($format) === $date;
 }
 
 /**

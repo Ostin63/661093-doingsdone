@@ -8,7 +8,7 @@ $page_name = 'Дела в поряке';
 
 
 //валидация формы
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $form = $_POST['form_ent'];
 
     $required = ['email', 'password'];

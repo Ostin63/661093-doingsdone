@@ -17,7 +17,7 @@
         $value = isset($task['project']) ? htmlspecialchars($task['project']) : "" ?>
         <select class="form__input form__input--select" name="task[project]" id="project">
             <?php foreach ($projects as $project): ?>
-                <option <?= $project['id'] == $value ? 'selected' : '' ?>
+                <option <?= $project['id'] === $value ? 'selected' : '' ?>
                         value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
             <?php endforeach ?>
         </select>

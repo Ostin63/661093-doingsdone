@@ -9,19 +9,18 @@
 <div class="tasks-controls">
     <nav class="tasks-switch">
         <a href="/index.php?filter=all"
-           class="tasks-switch__item <?= !isset($filter) || $filter == "all" ? "tasks-switch__item--active" : "" ?>">Все
+           class="tasks-switch__item <?= !isset($filter) || $filter === "all" ? "tasks-switch__item--active" : "" ?>">Все
             задачи</a>
         <a href="/index.php?filter=agenda"
-           class="tasks-switch__item <?= $filter == "agenda" ? "tasks-switch__item--active" : "" ?>">Повестка дня</a>
+           class="tasks-switch__item <?= $filter === "agenda" ? "tasks-switch__item--active" : "" ?>">Повестка дня</a>
         <a href="/index.php?filter=tomorrow"
-           class="tasks-switch__item <?= $filter == "tomorrow" ? "tasks-switch__item--active" : "" ?>">Завтра</a>
+           class="tasks-switch__item <?= $filter === "tomorrow" ? "tasks-switch__item--active" : "" ?>">Завтра</a>
         <a href="/index.php?filter=expired"
-           class="tasks-switch__item <?= $filter == "expired" ? "tasks-switch__item--active" : "" ?>">Просроченные</a>
+           class="tasks-switch__item <?= $filter === "expired" ? "tasks-switch__item--active" : "" ?>">Просроченные</a>
     </nav>
     <label class="checkbox">
-        <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
         <input class="checkbox__input visually-hidden show_completed"
-               type="checkbox" <?= ($show_complete_tasks == 1) ? "checked" : "" ?>>
+               type="checkbox" <?= $show_complete_tasks ? "checked" : "" ?>>
         <span class="checkbox__text">Показывать выполненные</span>
     </label>
 
@@ -29,7 +28,7 @@
 <p><?= !empty($search) && empty($tasksList) ? "Ничего не найдено по вашему запросу" : '' ?></p>
 <table class="tasks">
     <?php foreach ($tasksList as $taskInfo): ?>
-        <?php if (!$taskInfo['done'] || $show_complete_tasks == 1): ?>
+        <?php if (!$taskInfo['done'] || $show_complete_tasks): ?>
             <tr class="tasks__item task <?= $taskInfo['done'] ? "task--completed" : "" ?> <?= isTaskImportant($taskInfo['date_completion'], 24) && !$taskInfo['done'] ? "task--important" : "" ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
@@ -44,7 +43,7 @@
                     <a class="download-link" href="#"><?= htmlspecialchars($taskInfo['project_name']) ?></a>
                 </td>
 
-                <td class="task__date"><?= $taskInfo['date_completion'] == null ? '' : date('d.m.Y', strtotime($taskInfo['date_completion'])) ?></td>
+                <td class="task__date"><?= empty($taskInfo['date_completion']) ? '' : date('d.m.Y', strtotime($taskInfo['date_completion'])) ?></td>
             </tr>
         <?php endif ?>
     <?php endforeach ?>

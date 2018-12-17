@@ -11,9 +11,9 @@ if (!isset($_SESSION['user']['id'])) {
     header("Location: /guest.php");
     exit();
 
-} else {
-    $userId = $_SESSION['user']['id'];
 }
+$userId = $_SESSION['user']['id'];
+
 
 if (isset($_GET['task_id']) && isset($_GET['check'])) {
     if (!changeTaskCompletion($con, $_GET['task_id'], $_GET['check'], $userId)) {
@@ -22,7 +22,7 @@ if (isset($_GET['task_id']) && isset($_GET['check'])) {
     }
 }
 
-$show_complete_tasks = isset($_GET['show_completed']) ? $_GET['show_completed'] : false;
+$show_complete_tasks = isset($_GET['show_completed']) ? (bool) $_GET['show_completed'] : false;
 
 $projects = getProjects($con, $userId);
 

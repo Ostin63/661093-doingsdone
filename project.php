@@ -11,9 +11,10 @@ if (!isset($_SESSION['user']['id'])) {
     header("Location: /guest.php");
     exit();
 
-} else {
-    $userId = $_SESSION['user']['id'];
 }
+
+$userId = $_SESSION['user']['id'];
+
 
 // подключаем контент
 $projects = getProjects($con, (int)$userId);
@@ -24,7 +25,7 @@ $content_task = include_template('content-task.php', [
 ]);
 
 //валидация формы
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $projects = $_POST['project'];
 
     $required = ['name'];

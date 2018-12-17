@@ -8,15 +8,12 @@ if (!isset($_SESSION['user']['id'])) {
     header("Location: /guest.php");
     exit();
 
-} else {
-    $userId = $_SESSION['user']['id'];
 }
+$userId = $_SESSION['user']['id'];
+
 
 // заголовок
 $page_name = 'Дела в поряке';
-
-// показывать или нет выполненные задачи
-$show_complete_tasks = rand(0, 1);
 
 // подключаем контент
 $projects = getProjects($con, $userId);
@@ -27,7 +24,7 @@ $content_task = include_template('content-task.php', [
 ]);
 
 //валидация формы
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $task = $_POST['task'];
 
     $required = ['name', 'project'];
@@ -39,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $projectExists = false;
     foreach ($projects as $project) {
-        if ($project['id'] == $task['project']) {
+        if ($project['id'] === $task['project']) {
             $projectExists = true;
             break;
         }
@@ -47,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$projectExists) {
         $errors['project'] = 'Неверный проект';
     }
-    if ($task['date'] == '') {
+    if (empty($task['date'])) {
         $task['date'] = null;
     } else if (!validateDate($task['date'])) {
         $errors['date'] = 'Не верный формат';
