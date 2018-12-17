@@ -13,12 +13,10 @@
     </div>
     <div class="form__row">
         <label class="form__label" for="project">Проект <sup>*</sup></label>
-        <?php $classname = isset($errors['project']) ? "form__input--error" : "";
-        $value = isset($task['project']) ? htmlspecialchars($task['project']) : "" ?>
+        <?php $classname = isset($errors['project']) ? "form__input--error" : ""; ?>
         <select class="form__input form__input--select" name="task[project]" id="project">
             <?php foreach ($projects as $project): ?>
-                <option <?= $project['id'] === $value ? 'selected' : '' ?>
-                        value="<?= htmlspecialchars($project['id']) ?>"><?= htmlspecialchars($project['name']) ?></option>
+                <option <?= ((int) $project['id'] === (isset($task['project']) ? (int) $task['project'] : 0)) ? 'selected' : '' ?><?= htmlspecialchars($project['name']) ?></option>
             <?php endforeach ?>
         </select>
         <?php if (isset($errors['project'])): ?>
