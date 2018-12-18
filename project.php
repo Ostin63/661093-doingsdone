@@ -20,7 +20,7 @@ $userId = $_SESSION['user']['id'];
 $projects = getProjects($con, (int)$userId);
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
-    'projects' => $project,
+    'projects' => $projects,
     'tasksList' => getTasksForAuthorId($con, $userId)
 ]);
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     // подключаем контент
     $content = include_template('/project.php', [
-        'projects' => $project
+        'projects' => $projects
     ]);
 }
 
