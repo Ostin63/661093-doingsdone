@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $projectExists = false;
     foreach ($projects as $project) {
-        if ($project['id'] === $task['project']) {
+        if ($project['id'] ===  (int)  $task['project']) {
             $projectExists = true;
             break;
         }

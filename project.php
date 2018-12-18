@@ -35,6 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[$key] = 'Это поле обязательно';
         }
     }
+    if(empty($errors)) {
+        foreach ($projects as $currentProject) {
+            if($project['name'] === $currentProject['name']) {
+                $errors['name'] = 'проект с таким названием уже существует';
+            }
+        }
+    }
     if (count($errors) > 0) {
         $content = include_template('project.php', ['projects' => $projects, 'errors' => $errors]);
     } else {
