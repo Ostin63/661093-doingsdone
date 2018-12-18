@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($errors) > 0) {
         $content = include_template('project.php', ['projects' => $projects, 'errors' => $errors]);
     } else {
-        addProjectForm($con, $projects['name'], $_SESSION['user']['id']);
+        addProjectForm($con, $project['name'], $_SESSION['user']['id']);
         header("Location: /index.php");
         exit();
     }
