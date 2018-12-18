@@ -19,10 +19,6 @@ $userId = $_SESSION['user']['id'];
 // подключаем контент
 $projects = getProjects($con, (int)$userId);
 $button_footer = include_template('button-footer.php');
-$content_task = include_template('content-task.php', [
-    'projects' => $projects,
-    'tasksList' => getTasksForAuthorId($con, $userId)
-]);
 
 //валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -55,6 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'projects' => $projects
     ]);
 }
+
+$content_task = include_template('content-task.php', [
+    'projects' => $projects,
+    'tasksList' => getTasksForAuthorId($con, $userId)
+]);
 
 // формируем главную страницу
 $content_user = include_template('user.php');
