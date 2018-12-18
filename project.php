@@ -26,19 +26,19 @@ $content_task = include_template('content-task.php', [
 
 //валидация формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $projects = $_POST['project'];
+    $project = $_POST['project'];
 
     $required = ['name'];
     $errors = [];
     foreach ($required as $key) {
-        if (empty($projects[$key])) {
+        if (empty($project[$key])) {
             $errors[$key] = 'Это поле обязательно';
         }
     }
     if(empty($errors)) {
         foreach ($projects as $currentProject) {
             if($project['name'] === $currentProject['name']) {
-                $errors['name'] = 'проект с таким названием уже существует';
+                $errors['name'] = 'Проект с таким названием уже существует';
             }
         }
     }

@@ -59,7 +59,7 @@ function getTasksForAuthorIdAllProjected($con, int $userId)
 }
 
 /**
- * Получает задачт на сегодня для одного автора
+ * Получает задачи на сегодня для одного автора
  * @param $con mysqli Ресурс соединения
  * @param $userId int Идентификатор автора
  * @return array
@@ -80,7 +80,7 @@ function getTasksForAuthorIdAndProjectedAgenda($con, int $userId)
 }
 
 /**
- * Получение задач на завтра для одного автора
+ * Получает задачи на завтра для одного автора
  * @param $con mysqli Ресурс соединения
  * @param $userId int Идентификатор автора
  * @return array
@@ -122,7 +122,7 @@ function getTasksForAuthorIdAndProjectedExpired($con, int $userId)
 }
 
 /**
- * Получает задачт проекта для одного автора
+ * Получает задачи проекта для одного автора
  * @param $con mysqli Ресурс соединения
  * @param $userId int Идентификатор автора
  * @param $projectId int Идентификатор проекта
