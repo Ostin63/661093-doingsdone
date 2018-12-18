@@ -20,7 +20,7 @@ $userId = $_SESSION['user']['id'];
 $projects = getProjects($con, (int)$userId);
 $button_footer = include_template('button-footer.php');
 $content_task = include_template('content-task.php', [
-    'projects' => $projects,
+    'projects' => $project,
     'tasksList' => getTasksForAuthorId($con, $userId)
 ]);
 
