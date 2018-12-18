@@ -32,13 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = 'Такой пользователь не найден';
     }
 
-    if (count($errors)) {
-        $content = include_template('enter.php', ['form' => $form, 'errors' => $errors]);
-    } else {
+    if (empty($errors)) {
         header("Location: /index.php");
         exit();
     }
 
+    $content = include_template('enter.php', ['form' => $form, 'errors' => $errors]);
 } else {
     if (isset($_SESSION['user'])) ;
     {

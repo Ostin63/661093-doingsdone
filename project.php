@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-    if (count($errors) > 0) {
-        $content = include_template('project.php', ['projects' => $project, 'errors' => $errors]);
-    } else {
+    if (empty($errors)) {
         addProjectForm($con, $project['name'], $_SESSION['user']['id']);
         header("Location: /index.php");
         exit();
     }
+
+    $content = include_template('project.php', ['projects' => $project, 'errors' => $errors]);
 } else {
     // подключаем контент
     $content = include_template('/project.php', [

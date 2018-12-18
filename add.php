@@ -62,13 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $task['file'] = null;
     }
-    if (count($errors) > 0) {
-        $content = include_template('add.php', ['projects' => $projects, 'task' => $task, 'errors' => $errors]);
-    } else {
+
+    if (empty($errors)) {
         addTaskform($con, $task['name'], $task['date'], $task['file'], $task['project']);
         header("Location: /index.php");
         exit();
     }
+    $content = include_template('add.php', ['projects' => $projects, 'task' => $task, 'errors' => $errors]);
 } else {
     // подключаем контент
     $content = include_template('add.php', [
