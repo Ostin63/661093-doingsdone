@@ -10,7 +10,7 @@
         <div class="user-menu__data">
             <p><?= isset($_SESSION['user']['name']) ? htmlspecialchars($_SESSION['user']['name']) : "" ?></p>
 
-            <a href="/logout.php">Выйти</a>
+            <a href="/logout.php">*Выйти</a>
         </div>
     </div>
 </div>
